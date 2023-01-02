@@ -12,6 +12,16 @@ import 'package:path/path.dart' as p;
 
 part "database.g.dart";
 
+class DatabaseWrapper {
+  static Database? _database;
+
+  static Database getInstance() {
+    _database ??= Database();
+
+    return _database!;
+  }
+}
+
 @DriftDatabase(
     tables: [Categories, Wallets, Histories, BudgetPlans], daos: [WalletsDao])
 class Database extends _$Database {
