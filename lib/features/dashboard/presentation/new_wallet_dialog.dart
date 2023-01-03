@@ -1,4 +1,5 @@
 import 'package:financio/features/dashboard/data/wallet_controller.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +17,7 @@ class NewWalletDialogState extends ConsumerState<NewWalletDialog> {
   @override
   void initState() {
     super.initState();
-    walletController = ref.read(walletControllerProvider);
+    walletController = ref.read(FinancioProvider.walletController);
   }
 
   String name = "";
@@ -33,7 +34,7 @@ class NewWalletDialogState extends ConsumerState<NewWalletDialog> {
           TextButton(
             onPressed: () {
               walletController.addWallet(name, type);
-              ref.invalidate(walletProvider);
+              ref.invalidate(FinancioProvider.wallets);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Wallet added successfully.")),
               );

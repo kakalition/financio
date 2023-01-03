@@ -1,4 +1,7 @@
+import 'package:financio/containers/latest_transaction.dart';
 import 'package:financio/db/database.dart';
+import 'package:financio/features/dashboard/presentation/LatestTransactionsSection.dart';
+import 'package:financio/features/dashboard/presentation/dashboard_page.dart';
 import 'package:flutter/material.dart';
 
 extension Widgets on List<Wallet> {
@@ -11,5 +14,29 @@ extension Widgets on List<Wallet> {
     );
 
     return walletIterable.toList();
+  }
+
+  List<Widget> toAllocationChildren() {
+    List<Widget> walletList = [];
+
+    forEach((e) {
+      walletList.add(AllocationTile(wallet: e));
+      walletList.add(const SizedBox(height: 4));
+    });
+
+    return walletList;
+  }
+}
+
+extension WidgetsLatestTransaction on List<LatestTransaction> {
+  List<Widget> toColumnChildren() {
+    List<Widget> walletList = [];
+
+    forEach((e) {
+      walletList.add(LastTransactionTile(data: e));
+      walletList.add(const SizedBox(height: 8));
+    });
+
+    return walletList;
   }
 }

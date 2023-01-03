@@ -12,17 +12,22 @@ class WalletsDao extends DatabaseAccessor<Database> with _$WalletsDaoMixin {
   Future<List<Wallet>> getWallets() async {
     final insert = db.select(db.wallets);
     insert.where((tbl) => tbl.type.equals("wallet"));
+    final data = insert.get();
 
-    return await insert.get();
+    return data;
   }
 
   Future<List<Wallet>> getAllocations() async {
     final insert = db.select(db.wallets);
     insert.where((tbl) => tbl.type.equals("allocation"));
-    return await insert.get();
+    final data = insert.get();
+    print(await data);
+    return data;
   }
 
   Future<int> addWallet(String name, String type) {
+    print(name);
+    print(type);
     InsertStatement<$WalletsTable, Wallet> insert = db.into(db.wallets);
     return insert.insert(
       WalletsCompanion.insert(
@@ -49,6 +54,7 @@ class WalletsDao extends DatabaseAccessor<Database> with _$WalletsDaoMixin {
 
       await db.into(db.histories).insert(HistoriesCompanion(
           walletId: Value(id),
+          isSpending: Value(0),
           total: Value(total),
           note: Value(note),
           date: Value(DateTime.now())));
@@ -65,6 +71,7 @@ class WalletsDao extends DatabaseAccessor<Database> with _$WalletsDaoMixin {
 
       await db.into(db.histories).insert(HistoriesCompanion(
           walletId: Value(id),
+          isSpending: Value(1),
           total: Value(total),
           note: Value(note),
           date: Value(DateTime.now())));

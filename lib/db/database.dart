@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:financio/db/budgetplans.dart';
 import 'package:financio/db/categories.dart';
+import 'package:financio/db/daos/histories_dao.dart';
 import 'package:financio/db/daos/wallets_dao.dart';
 import 'package:financio/db/histories.dart';
 import 'package:financio/db/wallets.dart';
@@ -23,7 +24,7 @@ class DatabaseWrapper {
 }
 
 @DriftDatabase(
-    tables: [Categories, Wallets, Histories, BudgetPlans], daos: [WalletsDao])
+    tables: [Categories, Wallets, Histories, BudgetPlans], daos: [WalletsDao, HistoriesDao])
 class Database extends _$Database {
   Database() : super(_openConnection());
 

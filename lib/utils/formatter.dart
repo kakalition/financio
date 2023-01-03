@@ -7,3 +7,10 @@ extension Formatter on int {
         .replaceAll(',', '.');
   }
 }
+
+extension DateFormatter on DateTime {
+  String toTransactionDate() {
+    final te = DateFormat("dd MMMM yyyy HH:mm");
+    return te.format(this).toString();
+  }
+}

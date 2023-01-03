@@ -1,4 +1,5 @@
 import 'package:financio/db/database.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:financio/main.dart';
 import 'package:financio/notifications/refresh_notification.dart';
 import 'package:flutter/material.dart';
@@ -153,8 +154,8 @@ class DeleteConfirmationDialog extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.read(walletControllerProvider).deleteWallet(id);
-            ref.invalidate(walletProvider);
+            ref.read(FinancioProvider.walletsDao).deleteWallet(id);
+            ref.invalidate(FinancioProvider.wallets);
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Wallet successfully deleted.")));
             Navigator.of(context).pop();

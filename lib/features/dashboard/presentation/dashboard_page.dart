@@ -1,10 +1,14 @@
+import 'package:financio/db/database.dart';
+import 'package:financio/features/dashboard/presentation/LatestTransactionsSection.dart';
 import 'package:financio/features/dashboard/presentation/dashboard_income_button.dart';
 import 'package:financio/features/dashboard/presentation/dashboard_spend_button.dart';
 import 'package:financio/features/dashboard/presentation/wallet_section.dart';
+import 'package:financio/utils/widgets.dart';
+import 'package:financio/utils/formatter.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:financio/utils/formatter.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({super.key});
@@ -14,11 +18,6 @@ class DashboardPage extends ConsumerStatefulWidget {
 }
 
 class DashboardPageState extends ConsumerState<DashboardPage> {
-  var dummyHistories = [
-    DummyHistory("Transportation", "Shell Super", 30000, "16:12", false),
-    DummyHistory("Food and Drink", "Oronamin C", 7000, "16:48", false),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,72 +39,9 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
               ],
             ),
             const SizedBox(height: 24),
-            Text(
-              "Latest Transactions",
-              style: GoogleFonts.poppins(
-                fontSize: 36,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Column(
-              children: dummyHistories.map<Widget>(
-                (e) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              e.category,
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: Colors.grey[900],
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              e.total.toRupiah(),
-                              style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                color: Colors.grey[900],
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              e.notes,
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              e.time,
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: Colors.grey[600],
-                                fontWeight: FontWeight.w400,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ).toList(),
-            ),
+            const AllocationsSection(),
+            const SizedBox(height: 24),
+            const LatestTransactionsSection(),
           ],
         ),
       ),
@@ -113,12 +49,50 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
   }
 }
 
-class DummyHistory {
-  var income = true;
-  var category = "";
-  var notes = "";
-  var total = 0;
-  var time = "";
+class AllocationTile extends StatelessWidget {
+  final Wallet wallet;
+  const AllocationTile({super.key, required this.wallet});
 
-  DummyHistory(this.category, this.notes, this.total, this.time, this.income);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(children: [Text(wallet.name), Text(wallet.total.toRupiah())]),
+    );
+  }
+}
+
+class AllocationsSection extends ConsumerWidget {
+  const AllocationsSection({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.read(FinancioProvider.allocations);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Allocations",
+          style: GoogleFonts.poppins(
+            fontSize: 36,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 16),
+        data.when(
+          data: (data) => Column(
+            children: data.toAllocationChildren(),
+          ),
+          loading: () => const Text("Loading"),
+          error: (error, stackTrace) => const Text("Error"),
+        )
+      ],
+    );
+  }
 }

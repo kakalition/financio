@@ -2,6 +2,7 @@ import 'package:financio/db/database.dart';
 import 'package:financio/features/dashboard/data/wallet_controller.dart';
 import 'package:financio/features/dashboard/presentation/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/presentation/wallet_widget.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,8 +32,8 @@ class WalletsSectionState extends ConsumerState {
 
   @override
   Widget build(BuildContext context) {
-    final wallets = ref.watch(walletProvider);
-    final walletController = ref.read(walletControllerProvider);
+    final wallets = ref.watch(FinancioProvider.wallets);
+    final walletController = ref.read(FinancioProvider.walletController);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

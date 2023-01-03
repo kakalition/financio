@@ -11,6 +11,8 @@ class WalletController {
   }
 
   Future<int> addWallet(String name, String type) {
+    print(name);
+    print(type);
     InsertStatement<$WalletsTable, Wallet> insert = db.into(db.wallets);
     return insert.insert(
       WalletsCompanion.insert(

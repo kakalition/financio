@@ -453,12 +453,14 @@ class $WalletsTable extends Wallets with TableInfo<$WalletsTable, Wallet> {
 
 class History extends DataClass implements Insertable<History> {
   final int id;
+  final int isSpending;
   final int walletId;
   final int total;
   final String note;
   final DateTime date;
   const History(
       {required this.id,
+      required this.isSpending,
       required this.walletId,
       required this.total,
       required this.note,
@@ -467,6 +469,7 @@ class History extends DataClass implements Insertable<History> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['is_spending'] = Variable<int>(isSpending);
     map['wallet_id'] = Variable<int>(walletId);
     map['total'] = Variable<int>(total);
     map['note'] = Variable<String>(note);
@@ -477,6 +480,7 @@ class History extends DataClass implements Insertable<History> {
   HistoriesCompanion toCompanion(bool nullToAbsent) {
     return HistoriesCompanion(
       id: Value(id),
+      isSpending: Value(isSpending),
       walletId: Value(walletId),
       total: Value(total),
       note: Value(note),
@@ -489,6 +493,7 @@ class History extends DataClass implements Insertable<History> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return History(
       id: serializer.fromJson<int>(json['id']),
+      isSpending: serializer.fromJson<int>(json['isSpending']),
       walletId: serializer.fromJson<int>(json['walletId']),
       total: serializer.fromJson<int>(json['total']),
       note: serializer.fromJson<String>(json['note']),
@@ -500,6 +505,7 @@ class History extends DataClass implements Insertable<History> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'isSpending': serializer.toJson<int>(isSpending),
       'walletId': serializer.toJson<int>(walletId),
       'total': serializer.toJson<int>(total),
       'note': serializer.toJson<String>(note),
@@ -508,9 +514,15 @@ class History extends DataClass implements Insertable<History> {
   }
 
   History copyWith(
-          {int? id, int? walletId, int? total, String? note, DateTime? date}) =>
+          {int? id,
+          int? isSpending,
+          int? walletId,
+          int? total,
+          String? note,
+          DateTime? date}) =>
       History(
         id: id ?? this.id,
+        isSpending: isSpending ?? this.isSpending,
         walletId: walletId ?? this.walletId,
         total: total ?? this.total,
         note: note ?? this.note,
@@ -520,6 +532,7 @@ class History extends DataClass implements Insertable<History> {
   String toString() {
     return (StringBuffer('History(')
           ..write('id: $id, ')
+          ..write('isSpending: $isSpending, ')
           ..write('walletId: $walletId, ')
           ..write('total: $total, ')
           ..write('note: $note, ')
@@ -529,12 +542,13 @@ class History extends DataClass implements Insertable<History> {
   }
 
   @override
-  int get hashCode => Object.hash(id, walletId, total, note, date);
+  int get hashCode => Object.hash(id, isSpending, walletId, total, note, date);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is History &&
           other.id == this.id &&
+          other.isSpending == this.isSpending &&
           other.walletId == this.walletId &&
           other.total == this.total &&
           other.note == this.note &&
@@ -543,12 +557,14 @@ class History extends DataClass implements Insertable<History> {
 
 class HistoriesCompanion extends UpdateCompanion<History> {
   final Value<int> id;
+  final Value<int> isSpending;
   final Value<int> walletId;
   final Value<int> total;
   final Value<String> note;
   final Value<DateTime> date;
   const HistoriesCompanion({
     this.id = const Value.absent(),
+    this.isSpending = const Value.absent(),
     this.walletId = const Value.absent(),
     this.total = const Value.absent(),
     this.note = const Value.absent(),
@@ -556,16 +572,19 @@ class HistoriesCompanion extends UpdateCompanion<History> {
   });
   HistoriesCompanion.insert({
     this.id = const Value.absent(),
+    required int isSpending,
     required int walletId,
     required int total,
     required String note,
     required DateTime date,
-  })  : walletId = Value(walletId),
+  })  : isSpending = Value(isSpending),
+        walletId = Value(walletId),
         total = Value(total),
         note = Value(note),
         date = Value(date);
   static Insertable<History> custom({
     Expression<int>? id,
+    Expression<int>? isSpending,
     Expression<int>? walletId,
     Expression<int>? total,
     Expression<String>? note,
@@ -573,6 +592,7 @@ class HistoriesCompanion extends UpdateCompanion<History> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (isSpending != null) 'is_spending': isSpending,
       if (walletId != null) 'wallet_id': walletId,
       if (total != null) 'total': total,
       if (note != null) 'note': note,
@@ -582,12 +602,14 @@ class HistoriesCompanion extends UpdateCompanion<History> {
 
   HistoriesCompanion copyWith(
       {Value<int>? id,
+      Value<int>? isSpending,
       Value<int>? walletId,
       Value<int>? total,
       Value<String>? note,
       Value<DateTime>? date}) {
     return HistoriesCompanion(
       id: id ?? this.id,
+      isSpending: isSpending ?? this.isSpending,
       walletId: walletId ?? this.walletId,
       total: total ?? this.total,
       note: note ?? this.note,
@@ -600,6 +622,9 @@ class HistoriesCompanion extends UpdateCompanion<History> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (isSpending.present) {
+      map['is_spending'] = Variable<int>(isSpending.value);
     }
     if (walletId.present) {
       map['wallet_id'] = Variable<int>(walletId.value);
@@ -620,6 +645,7 @@ class HistoriesCompanion extends UpdateCompanion<History> {
   String toString() {
     return (StringBuffer('HistoriesCompanion(')
           ..write('id: $id, ')
+          ..write('isSpending: $isSpending, ')
           ..write('walletId: $walletId, ')
           ..write('total: $total, ')
           ..write('note: $note, ')
@@ -644,6 +670,12 @@ class $HistoriesTable extends Histories
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _isSpendingMeta =
+      const VerificationMeta('isSpending');
+  @override
+  late final GeneratedColumn<int> isSpending = GeneratedColumn<int>(
+      'is_spending', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _walletIdMeta =
       const VerificationMeta('walletId');
   @override
@@ -666,7 +698,8 @@ class $HistoriesTable extends Histories
       'date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, walletId, total, note, date];
+  List<GeneratedColumn> get $columns =>
+      [id, isSpending, walletId, total, note, date];
   @override
   String get aliasedName => _alias ?? 'histories';
   @override
@@ -678,6 +711,14 @@ class $HistoriesTable extends Histories
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('is_spending')) {
+      context.handle(
+          _isSpendingMeta,
+          isSpending.isAcceptableOrUnknown(
+              data['is_spending']!, _isSpendingMeta));
+    } else if (isInserting) {
+      context.missing(_isSpendingMeta);
     }
     if (data.containsKey('wallet_id')) {
       context.handle(_walletIdMeta,
@@ -714,6 +755,8 @@ class $HistoriesTable extends Histories
     return History(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      isSpending: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}is_spending'])!,
       walletId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}wallet_id'])!,
       total: attachedDatabase.typeMapping
@@ -985,6 +1028,7 @@ abstract class _$Database extends GeneratedDatabase {
   late final $HistoriesTable histories = $HistoriesTable(this);
   late final $BudgetPlansTable budgetPlans = $BudgetPlansTable(this);
   late final WalletsDao walletsDao = WalletsDao(this as Database);
+  late final HistoriesDao historiesDao = HistoriesDao(this as Database);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

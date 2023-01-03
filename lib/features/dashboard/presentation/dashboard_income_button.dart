@@ -1,4 +1,5 @@
 import 'package:financio/db/database.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class IncomeDialogState extends ConsumerState<IncomeDialog> {
   @override
   void initState() {
     super.initState();
-    wallets = ref.read(walletProvider);
+    wallets = ref.read(FinancioProvider.wallets);
   }
 
   @override
@@ -63,9 +64,9 @@ class IncomeDialogState extends ConsumerState<IncomeDialog> {
         TextButton(
           onPressed: () {
             ref
-                .read(walletDaoProvider)
+                .read(FinancioProvider.walletsDao)
                 .allocateToWallet(targetWalletId!, total, note);
-            ref.invalidate(walletProvider);
+            ref.invalidate(FinancioProvider.wallets);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Income successfully added to wallet.")));
             Navigator.of(context).pop();

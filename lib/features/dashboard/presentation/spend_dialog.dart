@@ -1,4 +1,5 @@
 import 'package:financio/db/database.dart';
+import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
   @override
   void initState() {
     super.initState();
-    allocations = ref.read(allocationProvider);
+    allocations = ref.read(FinancioProvider.allocations);
   }
 
   @override
@@ -36,9 +37,10 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
           child: const Text("Save"),
           onPressed: () {
             ref
-                .read(walletDaoProvider)
+                .read(FinancioProvider.walletsDao)
                 .deductFromAllocation(targetWalletId!, total, note);
-            ref.invalidate(walletProvider);
+            ref.invalidate(FinancioProvider.wallets);
+            ref.invalidate(FinancioProvider.getLatestHistories);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Spend successfully deducted from allocation.")));
             Navigator.of(context).pop();
