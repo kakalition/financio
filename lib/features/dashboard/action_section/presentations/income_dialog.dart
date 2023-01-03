@@ -1,37 +1,8 @@
-import 'package:financio/db/database.dart';
+import 'package:financio/core/db/database.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
-import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class DashboardIncomeButton extends ConsumerWidget {
-  const DashboardIncomeButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: OutlinedButton.icon(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => const IncomeDialog(),
-        ),
-        icon: const Icon(Icons.arrow_downward, size: 16),
-        label: const Text("Income"),
-        style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.grey[900],
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          side: BorderSide(color: Colors.grey[300]!, width: 1),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class IncomeDialog extends ConsumerStatefulWidget {
   const IncomeDialog({super.key});
@@ -112,18 +83,19 @@ class IncomeDialogState extends ConsumerState<IncomeDialog> {
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.grey[400]!, width: 1)),
             child: wallets.when(
-                data: (data) => DropdownButton(
-                      underline: Container(height: 0),
-                      isExpanded: true,
-                      hint: const Text("Target Wallet"),
-                      onChanged: (value) => setState(() {
-                        targetWalletId = value ?? 1;
-                      }),
-                      value: targetWalletId,
-                      items: data.toDropdownItem(),
-                    ),
-                error: ((error, stackTrace) => const Text("Errors")),
-                loading: () => const Text("Loading")),
+              data: (data) => DropdownButton(
+                underline: Container(height: 0),
+                isExpanded: true,
+                hint: const Text("Target Wallet"),
+                onChanged: (value) => setState(() {
+                  targetWalletId = value ?? 1;
+                }),
+                value: targetWalletId,
+                items: data.toDropdownItem(),
+              ),
+              error: (error, stackTrace) => const Text("Errors"),
+              loading: () => const Text("Loading"),
+            ),
           ),
         ]),
       ),

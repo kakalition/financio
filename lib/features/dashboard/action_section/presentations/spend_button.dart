@@ -1,8 +1,8 @@
-import 'package:financio/features/dashboard/presentation/spend_dialog.dart';
+import 'package:financio/features/dashboard/action_section/presentations/spend_dialog.dart';
 import 'package:flutter/material.dart';
 
-class DashboardSpendButton extends StatelessWidget {
-  const DashboardSpendButton({
+class SpendButton extends StatelessWidget {
+  const SpendButton({
     Key? key,
   }) : super(key: key);
 

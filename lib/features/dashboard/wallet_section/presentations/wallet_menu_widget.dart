@@ -1,4 +1,4 @@
-import 'package:financio/features/dashboard/presentation/new_wallet_dialog.dart';
+import 'package:financio/features/dashboard/wallet_section/presentations/new_wallet_dialog.dart';
 import 'package:flutter/material.dart';
 
 class WalletMenuWidget extends StatelessWidget {

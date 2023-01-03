@@ -1,9 +1,8 @@
-import 'package:financio/db/database.dart';
+import 'package:financio/core/db/database.dart';
 import 'package:financio/features/dashboard/data/wallet_controller.dart';
 import 'package:financio/features/dashboard/presentation/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/presentation/wallet_widget.dart';
 import 'package:financio/financio_proviers.dart';
-import 'package:financio/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,15 +44,20 @@ class WalletsSectionState extends ConsumerState {
         ),
         const SizedBox(height: 24),
         SizedBox(
-            height: 96,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: wallets.when(
-                  data: (data) =>
-                      Row(children: walletsToWidgets(data, walletController)),
-                  loading: () => const Text("Still loading"),
-                  error: ((error, stackTrace) => Text(error.toString()))),
-            )),
+          height: 96,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: wallets.when(
+              data: (data) => Row(
+                children: walletsToWidgets(data, walletController),
+              ),
+              loading: () => const Text("Still loading"),
+              error: (error, stackTrace) => Text(
+                error.toString(),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

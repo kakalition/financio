@@ -1,7 +1,7 @@
 import 'package:financio/containers/latest_transaction.dart';
-import 'package:financio/db/database.dart';
-import 'package:financio/features/dashboard/presentation/LatestTransactionsSection.dart';
-import 'package:financio/features/dashboard/presentation/dashboard_page.dart';
+import 'package:financio/core/db/database.dart';
+import 'package:financio/features/dashboard/allocation_section/presentations/allocation_tile.dart';
+import 'package:financio/features/dashboard/latest_transaction_section/presentations/latest_transaction_section.dart';
 import 'package:flutter/material.dart';
 
 extension Widgets on List<Wallet> {

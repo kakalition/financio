@@ -1,5 +1,5 @@
 import 'package:drift_db_viewer/drift_db_viewer.dart';
-import 'package:financio/features/dashboard/presentation/dashboard_page.dart';
+import 'package:financio/features/dashboard/pages/dashboard_page.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
