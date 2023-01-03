@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:financio/db/database.dart';
-import 'package:financio/db/histories.dart';
-import 'package:financio/db/wallets.dart';
+import 'package:financio/core/db/database.dart';
+import 'package:financio/core/db/tables/histories.dart';
+import 'package:financio/core/db/tables/wallets.dart';
 
 part 'wallets_dao.g.dart';
 

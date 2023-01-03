@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:financio/containers/latest_transaction.dart';
-import 'package:financio/db/database.dart';
-import 'package:financio/db/histories.dart';
+import 'package:financio/core/db/database.dart';
+import 'package:financio/core/db/tables/histories.dart';
 
 part 'histories_dao.g.dart';
 

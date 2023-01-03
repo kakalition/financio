@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:financio/db/budgetplans.dart';
-import 'package:financio/db/categories.dart';
-import 'package:financio/db/daos/histories_dao.dart';
-import 'package:financio/db/daos/wallets_dao.dart';
-import 'package:financio/db/histories.dart';
-import 'package:financio/db/wallets.dart';
+import 'package:financio/core/db/tables/budgetplans.dart';
+import 'package:financio/core/db/tables/categories.dart';
+import 'package:financio/core/db/daos/histories_dao.dart';
+import 'package:financio/core/db/daos/wallets_dao.dart';
+import 'package:financio/core/db/tables/histories.dart';
+import 'package:financio/core/db/tables/wallets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
