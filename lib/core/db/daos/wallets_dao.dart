@@ -1,44 +1,32 @@
 import 'package:drift/drift.dart';
 import 'package:financio/core/db/database.dart';
-import 'package:financio/core/db/tables/histories.dart';
 import 'package:financio/core/db/tables/wallets.dart';
 
 part 'wallets_dao.g.dart';
 
-@DriftAccessor(tables: [Wallets, Histories])
+@DriftAccessor(tables: [Wallets])
 class WalletsDao extends DatabaseAccessor<Database> with _$WalletsDaoMixin {
   WalletsDao(Database db) : super(db);
 
-  Future<List<Wallet>> getWallets() async {
-    final insert = db.select(db.wallets);
-    insert.where((tbl) => tbl.type.equals("wallet"));
-    final data = insert.get();
+  Future<List<Wallet>> get() async {
+    final select = db.select(db.wallets);
+    final data = select.get();
 
     return data;
   }
 
-  Future<List<Wallet>> getAllocations() async {
-    final insert = db.select(db.wallets);
-    insert.where((tbl) => tbl.type.equals("allocation"));
-    final data = insert.get();
-    print(await data);
-    return data;
-  }
-
-  Future<int> addWallet(String name, String type) {
-    print(name);
-    print(type);
+  Future<int> add(String name, String type) {
     InsertStatement<$WalletsTable, Wallet> insert = db.into(db.wallets);
     return insert.insert(
       WalletsCompanion.insert(
         name: name,
-        type: type,
         total: 0,
+        createdDate: DateTime.now(),
       ),
     );
   }
 
-  Future<int> deleteWallet(int id) {
+  Future<int> remove(int id) {
     DeleteStatement<$WalletsTable, Wallet> delete = db.delete(db.wallets);
     delete.where((tbl) => tbl.id.equals(id));
     return delete.go();

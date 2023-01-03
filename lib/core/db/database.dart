@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:financio/core/db/tables/budgetplans.dart';
-import 'package:financio/core/db/tables/categories.dart';
 import 'package:financio/core/db/daos/histories_dao.dart';
 import 'package:financio/core/db/daos/wallets_dao.dart';
+import 'package:financio/core/db/tables/allocations.dart';
 import 'package:financio/core/db/tables/histories.dart';
 import 'package:financio/core/db/tables/wallets.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,12 +23,12 @@ class DatabaseWrapper {
 }
 
 @DriftDatabase(
-    tables: [Categories, Wallets, Histories, BudgetPlans], daos: [WalletsDao, HistoriesDao])
+    tables: [Wallets, Allocations, Histories], daos: [WalletsDao, HistoriesDao])
 class Database extends _$Database {
   Database() : super(_openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 1;
 }
 
 LazyDatabase _openConnection() {

@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Wallet {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
+  DateTime get createdDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WalletCopyWith<Wallet> get copyWith => throw _privateConstructorUsedError;
@@ -30,7 +30,7 @@ abstract class $WalletCopyWith<$Res> {
   factory $WalletCopyWith(Wallet value, $Res Function(Wallet) then) =
       _$WalletCopyWithImpl<$Res, Wallet>;
   @useResult
-  $Res call({int id, String name, String type, int total});
+  $Res call({int id, String name, int total, DateTime createdDate});
 }
 
 /// @nodoc
@@ -48,8 +48,8 @@ class _$WalletCopyWithImpl<$Res, $Val extends Wallet>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? type = null,
     Object? total = null,
+    Object? createdDate = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -60,14 +60,14 @@ class _$WalletCopyWithImpl<$Res, $Val extends Wallet>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as int,
+      createdDate: null == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -78,7 +78,7 @@ abstract class _$$_WalletCopyWith<$Res> implements $WalletCopyWith<$Res> {
       __$$_WalletCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, String type, int total});
+  $Res call({int id, String name, int total, DateTime createdDate});
 }
 
 /// @nodoc
@@ -93,8 +93,8 @@ class __$$_WalletCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? type = null,
     Object? total = null,
+    Object? createdDate = null,
   }) {
     return _then(_$_Wallet(
       id: null == id
@@ -105,14 +105,14 @@ class __$$_WalletCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as int,
+      createdDate: null == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -123,21 +123,21 @@ class _$_Wallet implements _Wallet {
   const _$_Wallet(
       {required this.id,
       required this.name,
-      required this.type,
-      required this.total});
+      required this.total,
+      required this.createdDate});
 
   @override
   final int id;
   @override
   final String name;
   @override
-  final String type;
-  @override
   final int total;
+  @override
+  final DateTime createdDate;
 
   @override
   String toString() {
-    return 'Wallet(id: $id, name: $name, type: $type, total: $total)';
+    return 'Wallet(id: $id, name: $name, total: $total, createdDate: $createdDate)';
   }
 
   @override
@@ -147,12 +147,13 @@ class _$_Wallet implements _Wallet {
             other is _$_Wallet &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.total, total) || other.total == total));
+            (identical(other.total, total) || other.total == total) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, type, total);
+  int get hashCode => Object.hash(runtimeType, id, name, total, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -165,17 +166,17 @@ abstract class _Wallet implements Wallet {
   const factory _Wallet(
       {required final int id,
       required final String name,
-      required final String type,
-      required final int total}) = _$_Wallet;
+      required final int total,
+      required final DateTime createdDate}) = _$_Wallet;
 
   @override
   int get id;
   @override
   String get name;
   @override
-  String get type;
-  @override
   int get total;
+  @override
+  DateTime get createdDate;
   @override
   @JsonKey(ignore: true)
   _$$_WalletCopyWith<_$_Wallet> get copyWith =>

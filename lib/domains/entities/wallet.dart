@@ -7,16 +7,16 @@ class Wallet with _$Wallet {
   const factory Wallet({
     required int id,
     required String name,
-    required String type,
     required int total,
+    required DateTime createdDate,
   }) = _Wallet;
 
   static Wallet fromMap(Map<String, dynamic> map) {
     return Wallet(
       id: map["id"],
       name: map["name"],
-      type: map["type"],
       total: map["total"],
+      createdDate: map["created_date"],
     );
   }
 }
