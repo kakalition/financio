@@ -1,17 +1,9 @@
-import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:financio/features/dashboard/pages/dashboard_page.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:go_router/go_router.dart";
-
-class DbViewer extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return DriftDbViewer(ref.read(FinancioProvider.db));
-  }
-}
 
 class FinancioRouter {
   static GoRouter getRouter() {

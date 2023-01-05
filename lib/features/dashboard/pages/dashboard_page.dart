@@ -1,14 +1,9 @@
-import 'package:financio/features/dashboard/action_section/presentations/income_button.dart';
-import 'package:financio/features/dashboard/action_section/presentations/spend_button.dart';
-import 'package:financio/features/dashboard/allocation_section/presentations/allocations_section.dart';
-import 'package:financio/features/dashboard/latest_transaction_section/presentations/latest_transaction_section.dart';
-import 'package:financio/features/dashboard/presentation/wallet_section%20copy.dart';
-import 'package:financio/utils/widgets.dart';
-import 'package:financio/utils/formatter.dart';
-import 'package:financio/financio_proviers.dart';
+import 'package:financio/features/dashboard/action_section/views/income_button.dart';
+import 'package:financio/features/dashboard/action_section/views/spend_button.dart';
+import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
+import 'package:financio/features/dashboard/wallet_section/views/wallet_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({super.key});
@@ -38,8 +33,8 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                 SpendButton(),
               ],
             ),
-            const SizedBox(height: 24),
-            const AllocationsSection(),
+            // const SizedBox(height: 24),
+            // const AllocationsSection(),
             const SizedBox(height: 24),
             const LatestTransactionsSection(),
           ],

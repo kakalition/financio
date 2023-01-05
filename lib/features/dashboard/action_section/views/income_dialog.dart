@@ -1,7 +1,6 @@
-import 'package:financio/core/db/database.dart';
+import 'package:flutter/material.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class IncomeDialog extends ConsumerStatefulWidget {
@@ -12,20 +11,15 @@ class IncomeDialog extends ConsumerStatefulWidget {
 }
 
 class IncomeDialogState extends ConsumerState<IncomeDialog> {
-  late final AsyncValue<List<Wallet>> wallets;
-
   int total = 0;
   String note = "";
   int? targetWalletId;
 
   @override
-  void initState() {
-    super.initState();
-    wallets = ref.read(FinancioProvider.wallets);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final repository = ref.watch(transactionRepositoryProvider);
+    final wallets = ref.watch(walletsProvider);
+
     return AlertDialog(
       actions: [
         TextButton(
@@ -34,12 +28,15 @@ class IncomeDialogState extends ConsumerState<IncomeDialog> {
         ),
         TextButton(
           onPressed: () {
-            ref
-                .read(FinancioProvider.walletsDao)
-                .allocateToWallet(targetWalletId!, total, note);
-            ref.invalidate(FinancioProvider.wallets);
+            repository.whenData((value) async {
+              await value.allocateToWallet(targetWalletId!, total, note);
+              ref.invalidate(walletsProvider);
+              ref.invalidate(latestHistoriesProvider);
+            });
+
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Income successfully added to wallet.")));
+
             Navigator.of(context).pop();
           },
           child: const Text("Save"),

@@ -1,4 +1,4 @@
-import 'package:financio/features/dashboard/action_section/presentations/spend_dialog.dart';
+import 'package:financio/features/dashboard/action_section/views/spend_dialog.dart';
 import 'package:flutter/material.dart';
 
 class SpendButton extends StatelessWidget {

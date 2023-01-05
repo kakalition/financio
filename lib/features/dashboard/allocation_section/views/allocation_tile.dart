@@ -1,9 +1,9 @@
-import 'package:financio/domains/entities/wallet.dart';
+import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
 class AllocationTile extends StatelessWidget {
-  final Wallet wallet;
+  final Allocations wallet;
   const AllocationTile({super.key, required this.wallet});
 
   @override
@@ -14,7 +14,10 @@ class AllocationTile extends StatelessWidget {
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Row(children: [Text(wallet.name), Text(wallet.total.toRupiah())]),
+      child: Row(children: [
+        Text(wallet.name ?? ""),
+        Text(wallet.total?.toRupiah() ?? "")
+      ]),
     );
   }
 }

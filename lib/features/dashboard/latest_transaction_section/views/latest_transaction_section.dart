@@ -1,4 +1,4 @@
-import 'package:financio/containers/latest_transaction.dart';
+import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/formatter.dart';
 import 'package:financio/utils/widgets.dart';
@@ -11,7 +11,7 @@ class LatestTransactionsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.read(FinancioProvider.getLatestHistories);
+    final data = ref.watch(latestHistoriesStream);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -38,7 +38,7 @@ class LatestTransactionsSection extends ConsumerWidget {
 }
 
 class LastTransactionTile extends StatelessWidget {
-  final LatestTransaction data;
+  final Histories data;
   const LastTransactionTile({
     Key? key,
     required this.data,
@@ -46,12 +46,13 @@ class LastTransactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleText =
-        data.isSpending == 0 ? "Income to ${data.walletName}" : data.walletName;
+    final titleText = data.isSpending == true
+        ? "Income to ${data.walletName}"
+        : data.walletName;
 
-    final totalText = data.isSpending == 0
-        ? "+${data.total.toRupiah()}"
-        : "-${data.total.toRupiah()}";
+    final totalText = data.isSpending == false
+        ? "+${data.total?.toRupiah()}"
+        : "-${data.total?.toRupiah()}";
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -66,7 +67,7 @@ class LastTransactionTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                titleText,
+                titleText ?? "",
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   color: Colors.grey[900],
@@ -89,7 +90,7 @@ class LastTransactionTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                data.note,
+                data.note ?? "",
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: Colors.grey[700],
@@ -97,7 +98,7 @@ class LastTransactionTile extends StatelessWidget {
                 ),
               ),
               Text(
-                data.date.toTransactionDate(),
+                data.date?.toTransactionDate() ?? "",
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: Colors.grey[800],

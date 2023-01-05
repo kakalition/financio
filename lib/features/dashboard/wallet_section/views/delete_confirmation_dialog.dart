@@ -1,3 +1,4 @@
+import 'package:financio/core/db/repositories/wallet_repository.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +9,27 @@ class DeleteConfirmationDialog extends ConsumerWidget {
 
   const DeleteConfirmationDialog({super.key, required this.id});
 
+  void deleteHandler(
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<WalletRepository> walletRepository,
+  ) {
+    walletRepository.whenData((repository) async {
+      await repository.delete(id);
+      ref.invalidate(walletsProvider);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Wallet successfully deleted.")),
+    );
+
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final walletRepository = ref.watch(walletRepositoryProvider);
+
     return AlertDialog(
       actions: [
         TextButton(
@@ -17,13 +37,7 @@ class DeleteConfirmationDialog extends ConsumerWidget {
           child: const Text("Cancel"),
         ),
         TextButton(
-          onPressed: () {
-            ref.read(FinancioProvider.walletsDao).deleteWallet(id);
-            ref.invalidate(FinancioProvider.wallets);
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Wallet successfully deleted.")));
-            Navigator.of(context).pop();
-          },
+          onPressed: () => deleteHandler(context, ref, walletRepository),
           child: const Text("Delete"),
         )
       ],
