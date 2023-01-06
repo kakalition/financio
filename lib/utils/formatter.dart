@@ -13,4 +13,9 @@ extension DateFormatter on DateTime {
     final te = DateFormat("dd MMMM yyyy HH:mm");
     return te.format(this).toString();
   }
+
+  String toLocalDate() {
+    final te = DateFormat("dd MMMM yyyy");
+    return te.format(this).toString();
+  }
 }

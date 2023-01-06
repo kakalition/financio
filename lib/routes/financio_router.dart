@@ -1,4 +1,5 @@
 import 'package:financio/features/dashboard/pages/dashboard_page.dart';
+import 'package:financio/features/histories/views/histories_page.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import "package:go_router/go_router.dart";
 class FinancioRouter {
   static GoRouter getRouter() {
     return GoRouter(
-      initialLocation: "/dashboard",
+      initialLocation: "/histories",
       routes: [
         ShellRoute(
             builder: ((context, state, child) {
@@ -37,7 +38,8 @@ class FinancioRouter {
               GoRoute(
                 path: "/histories",
                 pageBuilder: ((context, state) {
-                  return MaterialPage(child: Container(), key: state.pageKey);
+                  return MaterialPage(
+                      child: const HistoriesPage(), key: state.pageKey);
                 }),
               )
             ]),
