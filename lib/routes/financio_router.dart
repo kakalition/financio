@@ -1,15 +1,13 @@
 import 'package:financio/features/dashboard/pages/dashboard_page.dart';
 import 'package:financio/features/histories/views/histories_page.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
-import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:go_router/go_router.dart";
 
 class FinancioRouter {
   static GoRouter getRouter() {
     return GoRouter(
-      initialLocation: "/histories",
+      initialLocation: "/dashboard",
       routes: [
         ShellRoute(
             builder: ((context, state, child) {
