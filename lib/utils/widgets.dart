@@ -1,9 +1,8 @@
-import 'package:financio/containers/latest_transaction.dart';
+import 'package:financio/commons/widgets/history_tile.dart';
 import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/core/db/collections/wallets.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocation_tile.dart';
-import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_widget.dart';
 import 'package:flutter/material.dart';
@@ -47,12 +46,12 @@ extension ListAllocationsX on List<Allocations> {
   }
 }
 
-extension ListHistoriesX on List<Histories> {
+extension ListHistoriesWidgetX on List<Histories> {
   List<Widget> toColumnChildren() {
     List<Widget> walletList = [];
 
     forEach((e) {
-      walletList.add(LastTransactionTile(data: e));
+      walletList.add(HistoryTile(data: e));
       walletList.add(const SizedBox(height: 8));
     });
 

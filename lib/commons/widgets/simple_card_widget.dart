@@ -27,8 +27,8 @@ class SimpleCardWidget extends StatelessWidget {
           Text(
             body,
             style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[900],
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[800],
               fontSize: 24,
             ),
           ),

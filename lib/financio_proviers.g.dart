@@ -116,6 +116,78 @@ final latestHistoriesProvider = AutoDisposeFutureProvider<List<Histories>>(
       : _$latestHistoriesHash,
 );
 typedef LatestHistoriesRef = AutoDisposeFutureProviderRef<List<Histories>>;
+String _$rangedHistoriesHash() => r'2296b705aa8a8315e7fc6a1ab0a36ce052893cb0';
+
+/// See also [rangedHistories].
+class RangedHistoriesProvider
+    extends AutoDisposeFutureProvider<List<Histories>> {
+  RangedHistoriesProvider(
+    this.dateTimeRange,
+  ) : super(
+          (ref) => rangedHistories(
+            ref,
+            dateTimeRange,
+          ),
+          from: rangedHistoriesProvider,
+          name: r'rangedHistoriesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$rangedHistoriesHash,
+        );
+
+  final DateTimeRange dateTimeRange;
+
+  @override
+  bool operator ==(Object other) {
+    return other is RangedHistoriesProvider &&
+        other.dateTimeRange == dateTimeRange;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, dateTimeRange.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef RangedHistoriesRef = AutoDisposeFutureProviderRef<List<Histories>>;
+
+/// See also [rangedHistories].
+final rangedHistoriesProvider = RangedHistoriesFamily();
+
+class RangedHistoriesFamily extends Family<AsyncValue<List<Histories>>> {
+  RangedHistoriesFamily();
+
+  RangedHistoriesProvider call(
+    DateTimeRange dateTimeRange,
+  ) {
+    return RangedHistoriesProvider(
+      dateTimeRange,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Histories>> getProviderOverride(
+    covariant RangedHistoriesProvider provider,
+  ) {
+    return call(
+      provider.dateTimeRange,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'rangedHistoriesProvider';
+}
+
 String _$transactionRepositoryHash() =>
     r'aa8b2324477a284db87bc383ef950e736910c451';
 

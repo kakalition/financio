@@ -1,8 +1,12 @@
-import 'package:financio/commons/widgets/simple_card_widget.dart';
+import 'package:financio/core/db/collections/histories.dart';
+import 'package:financio/features/histories/views/histories_content.dart';
+import 'package:financio/features/histories/views/histories_summaries.dart';
+import 'package:financio/features/histories/views/sectioned_histories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:financio/utils/formatter.dart';
+import 'package:financio/financio_proviers.dart';
 
 class HistoriesPage extends ConsumerStatefulWidget {
   const HistoriesPage({super.key});
@@ -17,8 +21,24 @@ class HistoriesPageState extends ConsumerState<HistoriesPage> {
     end: DateTime.now(),
   );
 
+  void onDateRangeClicked() async {
+    final newDate = await showDateRangePicker(
+          context: context,
+          firstDate: DateTime(2020),
+          lastDate: DateTime.now(),
+          initialDateRange: date,
+        ) ??
+        date;
+
+    setState(() {
+      date = newDate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final histories = ref.watch(rangedHistoriesProvider(date));
+
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(24),
@@ -35,18 +55,7 @@ class HistoriesPageState extends ConsumerState<HistoriesPage> {
                       fontSize: 48, fontWeight: FontWeight.w500),
                 ),
                 TextButton(
-                  onPressed: (() async {
-                    final newDate = await showDateRangePicker(
-                          context: context,
-                          firstDate: DateTime(2020),
-                          lastDate: DateTime.now(),
-                          initialDateRange: date,
-                        ) ??
-                        date;
-                    setState(() {
-                      date = newDate;
-                    });
-                  }),
+                  onPressed: onDateRangeClicked,
                   child: Column(children: [
                     Text(date.start.toLocalDate()),
                     Text(date.end.toLocalDate()),
@@ -55,23 +64,11 @@ class HistoriesPageState extends ConsumerState<HistoriesPage> {
               ],
             ),
             const SizedBox(height: 24),
-            Row(
-              children: const [
-                Expanded(
-                  child: SimpleCardWidget(
-                    title: "Total Income",
-                    body: "Rp250.000",
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: SimpleCardWidget(
-                    title: "Total Income",
-                    body: "Rp250.000",
-                  ),
-                ),
-              ],
-            )
+            histories.when(
+              data: ((data) => HistoriesContent(histories: data)),
+              error: (error, stackTrace) => Text(error.toString()),
+              loading: () => const CircularProgressIndicator(),
+            ),
           ],
         ),
       ),

@@ -1,6 +1,4 @@
-import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/financio_proviers.dart';
-import 'package:financio/utils/formatter.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,82 +31,6 @@ class LatestTransactionsSection extends ConsumerWidget {
           error: (error, stackTrace) => const Text("Error"),
         )
       ],
-    );
-  }
-}
-
-class LastTransactionTile extends StatelessWidget {
-  final Histories data;
-  const LastTransactionTile({
-    Key? key,
-    required this.data,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final titleText = data.isSpending == true
-        ? "Income to ${data.walletName}"
-        : data.walletName;
-
-    final totalText = data.isSpending == false
-        ? "+${data.total?.toRupiah()}"
-        : "-${data.total?.toRupiah()}";
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                titleText ?? "",
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                totalText,
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                data.note ?? "",
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                data.date?.toTransactionDate() ?? "",
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

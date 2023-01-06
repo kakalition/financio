@@ -5,6 +5,7 @@ import 'package:financio/core/db/repositories/allocation_repository.dart';
 import 'package:financio/core/db/repositories/history_repository.dart';
 import 'package:financio/core/db/repositories/transaction_repository.dart';
 import 'package:financio/core/db/repositories/wallet_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -43,10 +44,7 @@ Future<List<Wallets>> wallets(WalletsRef ref) async {
 final walletsStream = StreamProvider.autoDispose((ref) async* {
   final isar = await ref.watch(isarProvider.future);
 
-  yield* isar.wallets
-      .where()
-      .sortByName()
-      .watch(fireImmediately: true);
+  yield* isar.wallets.where().sortByName().watch(fireImmediately: true);
 });
 
 @riverpod
@@ -100,6 +98,17 @@ final latestHistoriesStream = StreamProvider.autoDispose((ref) async* {
       .limit(10)
       .watch(fireImmediately: true);
 });
+
+@riverpod
+Future<List<Histories>> rangedHistories(
+  LatestHistoriesRef ref,
+  DateTimeRange dateTimeRange,
+) async {
+  final historyRepository = await ref.watch(historyRepositoryProvider.future);
+  final data = await historyRepository.getRanged(dateTimeRange);
+
+  return data;
+}
 
 @riverpod
 Future<TransactionRepository> transactionRepository(

@@ -1,4 +1,6 @@
 import 'package:financio/core/db/collections/histories.dart';
+import 'package:financio/utils/formatter.dart';
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 
 class HistoryRepository {
@@ -17,6 +19,19 @@ class HistoryRepository {
   Future<List<Histories>> getLatest() async {
     final data = _collection.isar.txn(() {
       return _collection.where().sortByDateDesc().limit(10).findAll();
+    });
+
+    return await data;
+  }
+
+  Future<List<Histories>> getRanged(DateTimeRange range) async {
+    final data = _collection.isar.txn(() {
+      return _collection
+          .where()
+          .filter()
+          .dateBetween(range.start.changeTimeToLowerBound(), range.end.changeTimeToUpperBound())
+          .sortByDate()
+          .findAll();
     });
 
     return await data;

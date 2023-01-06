@@ -48,6 +48,7 @@ dependencies:
   riverpod_annotation: ^1.0.6
   isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
+  collection: ^1.16.0
 
 
 dev_dependencies:
