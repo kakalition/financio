@@ -1,5 +1,6 @@
 import 'package:financio/features/dashboard/action_section/views/income_button.dart';
 import 'package:financio/features/dashboard/action_section/views/spend_button.dart';
+import 'package:financio/features/dashboard/allocation_section/views/allocations_section.dart';
 import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_section.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +34,8 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                 SpendButton(),
               ],
             ),
-            // const SizedBox(height: 24),
-            // const AllocationsSection(),
+            const SizedBox(height: 24),
+            const AllocationsSection(),
             const SizedBox(height: 24),
             const LatestTransactionsSection(),
           ],

@@ -15,8 +15,25 @@ class AllocationRepository {
     return await data;
   }
 
-  Future<int> add(Allocations allocation) {
-    return _collection.isar.writeTxn(() => _collection.put(allocation));
+  Future<int> add(String name, int initialTotal, int? deductionWalletId) {
+    return _collection.isar.writeTxn(() async {
+      final allocation = Allocations()
+        ..name = name
+        ..total = initialTotal
+        ..lastAllocationDate = DateTime.now()
+        ..totalLastAllocation = initialTotal
+        ..createdDate = DateTime.now();
+
+      final putFuture = await _collection.put(allocation);
+      if (deductionWalletId == null) return putFuture;
+
+      final wallet = await _collection.isar.wallets.get(deductionWalletId);
+      if (wallet == null) throw Exception("Wallet not found");
+
+      wallet.total = wallet.total! - initialTotal;
+
+      return await _collection.isar.wallets.put(wallet);
+    });
   }
 
   Future<int> edit(Allocations allocation) {

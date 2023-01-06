@@ -1,3 +1,4 @@
+import 'package:financio/features/dashboard/allocation_section/views/allocation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:financio/financio_proviers.dart';
@@ -9,7 +10,7 @@ class AllocationsSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(allocationsProvider);
+    final data = ref.watch(allocationsStream);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -23,6 +24,8 @@ class AllocationsSection extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 16),
+        const AllocationMenu(),
+        const SizedBox(height: 8),
         data.when(
           data: (data) => Column(
             children: data.toAllocationChildren(),

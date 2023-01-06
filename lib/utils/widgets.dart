@@ -38,7 +38,7 @@ extension ListAllocationsX on List<Allocations> {
     List<Widget> walletList = [];
 
     forEach((e) {
-      walletList.add(AllocationTile(wallet: e));
+      walletList.add(AllocationTile(allocation: e));
       walletList.add(const SizedBox(height: 4));
     });
 
