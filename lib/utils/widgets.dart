@@ -44,6 +44,17 @@ extension ListAllocationsX on List<Allocations> {
 
     return walletList;
   }
+
+  List<DropdownMenuItem<int>> toDropdownItems() {
+    dynamic allocationsIterable = map(
+      (e) => DropdownMenuItem<int>(
+        value: e.id,
+        child: Text(e.name ?? ""),
+      ),
+    );
+
+    return allocationsIterable.toList();
+  }
 }
 
 extension ListHistoriesWidgetX on List<Histories> {

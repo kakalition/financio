@@ -1,3 +1,4 @@
+import 'package:financio/core/db/repositories/transaction_repository.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:financio/main.dart';
@@ -12,20 +13,34 @@ class SpendDialog extends ConsumerStatefulWidget {
 }
 
 class SpendDialogState extends ConsumerState<SpendDialog> {
-  // late final AsyncValue<List<Wallet>> allocations;
-
   int total = 0;
   String note = "";
-  int? targetWalletId;
+  int? allocationId;
 
-  @override
-  void initState() {
-    super.initState();
-    // allocations = ref.read(FinancioProvider.allocations);
+  void spendingHandler(
+    BuildContext context,
+    AsyncValue<TransactionRepository> transactionRepository,
+  ) {
+    print("spending handler");
+    transactionRepository.whenData((repository) async {
+      print("inside whenData");
+      await repository.deductFromAllocation(allocationId!, total, note);
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Spend successfully deducted from allocation."),
+      ),
+    );
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final allocations = ref.watch(allocationsStream);
+    final transactionRepository = ref.watch(transactionRepositoryProvider);
+
     return AlertDialog(
       actions: [
         TextButton(
@@ -34,15 +49,7 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
         ),
         TextButton(
           child: const Text("Save"),
-          onPressed: () {
-            // ref
-            //     .read(FinancioProvider.walletsDao)
-            //     .deductFromAllocation(targetWalletId!, total, note);
-            // ref.invalidate(FinancioProvider.wallets);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Spend successfully deducted from allocation.")));
-            Navigator.of(context).pop();
-          },
+          onPressed: () => spendingHandler(context, transactionRepository),
         )
       ],
       title: const Text("Spend money"),
@@ -76,25 +83,25 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
             ),
           ),
           const SizedBox(height: 8),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-          //   decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(4),
-          //       border: Border.all(color: Colors.grey[400]!, width: 1)),
-          //   child: allocations.when(
-          //       data: (data) => DropdownButton(
-          //             underline: Container(height: 0),
-          //             isExpanded: true,
-          //             hint: const Text("Deduct from"),
-          //             onChanged: (value) => setState(() {
-          //               targetWalletId = value;
-          //             }),
-          //             value: targetWalletId,
-          //             items: data.toDropdownItem(),
-          //           ),
-          //       error: ((error, stackTrace) => const Text("Errors")),
-          //       loading: () => const Text("Loading")),
-          // ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Colors.grey[400]!, width: 1)),
+            child: allocations.when(
+                data: (data) => DropdownButton(
+                      underline: Container(height: 0),
+                      isExpanded: true,
+                      hint: const Text("Deduct from"),
+                      onChanged: (value) => setState(() {
+                        allocationId = value;
+                      }),
+                      value: allocationId,
+                      items: data.toDropdownItems(),
+                    ),
+                error: ((error, stackTrace) => const Text("Errors")),
+                loading: () => const Text("Loading")),
+          ),
         ]),
       ),
     );

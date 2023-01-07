@@ -1,4 +1,5 @@
 import 'package:financio/core/db/collections/histories.dart';
+import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/core/db/collections/wallets.dart';
 import 'package:isar/isar.dart';
 
@@ -19,6 +20,34 @@ class TransactionRepository {
         ..total = total
         ..note = note
         ..walletName = wallet.name!
+        ..date = DateTime.now();
+
+      await _isar.histories.put(history);
+    });
+  }
+
+  Future<void> deductFromAllocation(
+    int allocationId,
+    int total,
+    String note,
+  ) {
+    print(allocationId);
+    print(note);
+    print(total);
+
+    return _isar.writeTxn(() async {
+      final allocation = await _isar.allocations.get(allocationId);
+      if (allocation == null) throw Exception("Allocation not found");
+
+      allocation.total = allocation.total! - total;
+
+      await _isar.allocations.put(allocation);
+
+      final history = Histories()
+        ..isSpending = true
+        ..total = total
+        ..note = note
+        ..walletName = allocation.name!
         ..date = DateTime.now();
 
       await _isar.histories.put(history);

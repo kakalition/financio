@@ -71,7 +71,6 @@ final allocationsStream = StreamProvider.autoDispose((ref) async* {
   yield* isar.allocations.where().sortByName().watch(fireImmediately: true);
 });
 
-
 @riverpod
 Future<HistoryRepository> historyRepository(HistoryRepositoryRef ref) async {
   final isar = await ref.watch(isarProvider.future);

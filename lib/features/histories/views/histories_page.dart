@@ -1,7 +1,4 @@
-import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/features/histories/views/histories_content.dart';
-import 'package:financio/features/histories/views/histories_summaries.dart';
-import 'package:financio/features/histories/views/sectioned_histories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
