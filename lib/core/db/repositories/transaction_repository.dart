@@ -31,10 +31,6 @@ class TransactionRepository {
     int total,
     String note,
   ) {
-    print(allocationId);
-    print(note);
-    print(total);
-
     return _isar.writeTxn(() async {
       final allocation = await _isar.allocations.get(allocationId);
       if (allocation == null) throw Exception("Allocation not found");

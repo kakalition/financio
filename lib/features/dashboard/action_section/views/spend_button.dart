@@ -1,4 +1,5 @@
 import 'package:financio/features/dashboard/action_section/views/spend_dialog.dart';
+import 'package:financio/features/dashboard/action_section/views/spend_sheet.dart';
 import 'package:flutter/material.dart';
 
 class SpendButton extends StatelessWidget {
@@ -10,9 +11,11 @@ class SpendButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: OutlinedButton.icon(
-        onPressed: () => showDialog(
+        onPressed: () => showModalBottomSheet(
+          isScrollControlled: true,
+          useRootNavigator: true,
           context: context,
-          builder: (context) => const SpendDialog(),
+          builder: (context) => Wrap(children: const [SpendSheet()]),
         ),
         icon: const Icon(Icons.arrow_upward, size: 16),
         label: const Text("Spend"),

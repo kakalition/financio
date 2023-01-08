@@ -19,13 +19,14 @@ class HistoriesPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 48),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Histories",
                   style: GoogleFonts.poppins(
-                      fontSize: 48, fontWeight: FontWeight.w500),
+                      fontSize: 36, fontWeight: FontWeight.w500),
                 ),
                 IconButton(
                   onPressed: () => showModalBottomSheet(

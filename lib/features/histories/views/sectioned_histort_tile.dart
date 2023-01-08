@@ -21,9 +21,9 @@ class SectionedHistoryTile extends StatelessWidget {
         Text(
           header,
           style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w400,
-            color: Colors.grey[900],
-            fontSize: 36,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey[800],
+            fontSize: 24,
           ),
         ),
         const SizedBox(height: 16),
