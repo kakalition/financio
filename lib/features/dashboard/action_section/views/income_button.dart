@@ -1,4 +1,5 @@
 import 'package:financio/features/dashboard/action_section/views/income_dialog.dart';
+import 'package:financio/features/dashboard/action_section/views/income_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,9 +12,11 @@ class IncomeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: OutlinedButton.icon(
-        onPressed: () => showDialog(
+        onPressed: () => showModalBottomSheet(
+          isScrollControlled: true,
+          useRootNavigator: true,
           context: context,
-          builder: (context) => const IncomeDialog(),
+          builder: (context) => Wrap(children: const [IncomeSheet()]),
         ),
         icon: const Icon(Icons.arrow_downward, size: 16),
         label: const Text("Income"),
