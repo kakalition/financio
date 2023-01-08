@@ -32,6 +32,7 @@ class HistoriesPage extends ConsumerWidget {
                   onPressed: () => showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
+                    useRootNavigator: true,
                     builder: (BuildContext context) =>
                         Wrap(children: const [HistoriesFilterSheet()]),
                   ),

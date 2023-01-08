@@ -21,7 +21,7 @@ class WalletSection extends ConsumerWidget {
         ),
         const SizedBox(height: 24),
         SizedBox(
-          height: 96,
+          height: 120,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: wallets.when(

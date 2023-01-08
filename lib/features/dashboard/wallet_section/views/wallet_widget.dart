@@ -26,7 +26,7 @@ class WalletWidget extends StatelessWidget {
           );
         },
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 80),
+          constraints: const BoxConstraints(minWidth: 100),
           child: Container(
             padding: const EdgeInsets.only(left: 16, right: 48),
             decoration: BoxDecoration(
