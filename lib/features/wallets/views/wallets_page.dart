@@ -1,9 +1,10 @@
+import 'package:financio/core/db/collections/wallets.dart';
+import 'package:financio/features/wallets/views/wallet_card.dart';
 import 'package:financio/features/wallets/views/wallets_filter_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:financio/financio_proviers.dart';
-import 'package:financio/utils/widgets.dart';
 
 class WalletsPage extends ConsumerStatefulWidget {
   const WalletsPage({super.key});
@@ -51,5 +52,18 @@ class WalletsPageState extends ConsumerState<WalletsPage> {
         ),
       ),
     );
+  }
+}
+
+extension WalletPageX on List<Wallets> {
+  List<Widget> toWalletCards() {
+    List<Widget> list = [];
+
+    forEach((e) {
+      list.add(WalletCard(wallet: e));
+      list.add(const SizedBox(width: 8));
+    });
+
+    return list;
   }
 }

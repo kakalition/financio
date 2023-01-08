@@ -22,7 +22,7 @@ class ActionsModalBottomSheet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: Text(
-            title,
+            "$title Wallet",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
               color: Colors.grey[800],
@@ -31,6 +31,16 @@ class ActionsModalBottomSheet extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         const Divider(height: 1),
+        ListTile(
+          title: Text(
+            "Set to primary",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w400,
+              color: Colors.grey[800],
+            ),
+          ),
+          onTap: (() {}),
+        ),
         ListTile(
           title: Text(
             "Moves money",
@@ -49,8 +59,7 @@ class ActionsModalBottomSheet extends StatelessWidget {
               color: Colors.grey[800],
             ),
           ),
-          onTap: (() async {
-          }),
+          onTap: (() {}),
         ),
         ListTile(
           title: Text(

@@ -18,6 +18,7 @@ class WalletRepository {
     Wallets wallet = Wallets()
       ..name = name
       ..total = 0
+      ..isPrimary = false
       ..createdDate = DateTime.now();
 
     return _collection.isar.writeTxn(() => _collection.put(wallet));
@@ -29,5 +30,23 @@ class WalletRepository {
 
   Future<void> delete(int id) {
     return _collection.isar.writeTxn(() => _collection.delete(id));
+  }
+
+  Future<int> toPrimary(int id) {
+    return _collection.isar.writeTxn(() async {
+      final wallets =
+          await _collection.filter().isPrimaryEqualTo(true).findAll();
+
+      wallets.forEach((element) {
+        element.isPrimary = false;
+        _collection.put(element);
+      });
+
+      final wallet = await _collection.get(id);
+      if (wallet == null) throw Exception("Wallet not found.");
+
+      wallet.isPrimary = true;
+      return _collection.put(wallet);
+    });
   }
 }

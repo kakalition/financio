@@ -7,5 +7,6 @@ class Wallets {
   Id id = Isar.autoIncrement;
   String? name;
   int? total;
+  bool? isPrimary;
   DateTime? createdDate;
 }

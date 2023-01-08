@@ -1,5 +1,6 @@
 import 'package:financio/core/db/collections/wallets.dart';
-import 'package:financio/features/dashboard/wallet_section/views/actions_modal_bottom_sheet.dart';
+import 'package:financio/features/wallets/views/actions_modal_bottom_sheet.dart';
+import 'package:financio/features/wallets/views/wallet_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:financio/utils/formatter.dart';
@@ -27,8 +28,7 @@ class WalletCard extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          height: 128,
-          padding: const EdgeInsets.only(left: 16, right: 48),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
           ),
@@ -36,13 +36,19 @@ class WalletCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                wallet.name ?? "",
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                  color: Colors.grey[800],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    wallet.name ?? "",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                  WalletTag(isPrimary: wallet.isPrimary)
+                ],
               ),
               const SizedBox(height: 4),
               Text(

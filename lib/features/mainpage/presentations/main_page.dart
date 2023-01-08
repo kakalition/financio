@@ -18,14 +18,6 @@ class MainPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.circle),
-            label: 'Wallets',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.circle),
-            label: 'Allocations',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.circle),
             label: 'Histories',
           ),
         ],
