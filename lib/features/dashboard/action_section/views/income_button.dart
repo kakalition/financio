@@ -21,9 +21,10 @@ class IncomeButton extends ConsumerWidget {
         icon: const Icon(Icons.arrow_downward, size: 16),
         label: const Text("Income"),
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.grey[900],
+          foregroundColor: Theme.of(context).colorScheme.primary,
           padding: const EdgeInsets.symmetric(vertical: 12),
-          side: BorderSide(color: Colors.grey[300]!, width: 1),
+          side: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),

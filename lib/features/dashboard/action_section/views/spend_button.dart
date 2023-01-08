@@ -10,7 +10,7 @@ class SpendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: OutlinedButton.icon(
+      child: ElevatedButton.icon(
         onPressed: () => showModalBottomSheet(
           isScrollControlled: true,
           useRootNavigator: true,
@@ -19,9 +19,9 @@ class SpendButton extends StatelessWidget {
         ),
         icon: const Icon(Icons.arrow_upward, size: 16),
         label: const Text("Spend"),
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.grey[900],
-          foregroundColor: Colors.grey[50],
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           padding: const EdgeInsets.all(12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),

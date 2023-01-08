@@ -14,6 +14,7 @@ class HistoriesPage extends ConsumerWidget {
 
     return SingleChildScrollView(
       child: Container(
+        color: Theme.of(context).colorScheme.surface,
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

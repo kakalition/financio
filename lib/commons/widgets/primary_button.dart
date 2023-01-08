@@ -11,7 +11,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      color: Colors.grey[900],
+      color: Theme.of(context).colorScheme.primary,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: onTap,

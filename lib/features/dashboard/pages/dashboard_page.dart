@@ -18,6 +18,7 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        color: Theme.of(context).colorScheme.surface,
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

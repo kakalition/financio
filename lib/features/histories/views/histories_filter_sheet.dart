@@ -106,7 +106,7 @@ class HistoriesFilterSheetState extends ConsumerState {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 24),
         PrimaryButton(
             text: "Apply Filter",
             onTap: () {
