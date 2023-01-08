@@ -21,9 +21,7 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
     BuildContext context,
     AsyncValue<TransactionRepository> transactionRepository,
   ) {
-    print("spending handler");
     transactionRepository.whenData((repository) async {
-      print("inside whenData");
       await repository.deductFromAllocation(allocationId!, total, note);
     });
 

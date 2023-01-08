@@ -1,40 +1,16 @@
+import 'package:financio/features/histories/providers/histories_providers.dart';
 import 'package:financio/features/histories/views/histories_content.dart';
+import 'package:financio/features/histories/views/histories_filter_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:financio/utils/formatter.dart';
-import 'package:financio/financio_proviers.dart';
 
-class HistoriesPage extends ConsumerStatefulWidget {
+class HistoriesPage extends ConsumerWidget {
   const HistoriesPage({super.key});
 
   @override
-  HistoriesPageState createState() => HistoriesPageState();
-}
-
-class HistoriesPageState extends ConsumerState<HistoriesPage> {
-  DateTimeRange date = DateTimeRange(
-    start: DateTime.now(),
-    end: DateTime.now(),
-  );
-
-  void onDateRangeClicked() async {
-    final newDate = await showDateRangePicker(
-          context: context,
-          firstDate: DateTime(2020),
-          lastDate: DateTime.now(),
-          initialDateRange: date,
-        ) ??
-        date;
-
-    setState(() {
-      date = newDate;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final histories = ref.watch(rangedHistoriesProvider(date));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final histories = ref.watch(rangedHistoriesStream);
 
     return SingleChildScrollView(
       child: Container(
@@ -51,13 +27,15 @@ class HistoriesPageState extends ConsumerState<HistoriesPage> {
                   style: GoogleFonts.poppins(
                       fontSize: 48, fontWeight: FontWeight.w500),
                 ),
-                TextButton(
-                  onPressed: onDateRangeClicked,
-                  child: Column(children: [
-                    Text(date.start.toLocalDate()),
-                    Text(date.end.toLocalDate()),
-                  ]),
-                ),
+                IconButton(
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (BuildContext context) =>
+                        Wrap(children: const [HistoriesFilterSheet()]),
+                  ),
+                  icon: const Icon(Icons.filter_alt_outlined),
+                )
               ],
             ),
             const SizedBox(height: 24),

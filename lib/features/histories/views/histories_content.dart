@@ -23,7 +23,7 @@ class HistoriesContent extends StatelessWidget {
           )
         : SectionedHistories(list: histories);
 
-    return Column(children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       HistoriesSummaries(
         totalIncome: histories.getTotalIncome(),
         totalSpending: histories.getTotalSpending(),
