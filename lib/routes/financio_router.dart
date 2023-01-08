@@ -25,7 +25,8 @@ class FinancioRouter {
               GoRoute(
                 path: "/wallets",
                 pageBuilder: ((context, state) {
-                  return MaterialPage(child: const WalletsPage(), key: state.pageKey);
+                  return MaterialPage(
+                      child: const WalletsPage(), key: state.pageKey);
                 }),
               ),
               GoRoute(

@@ -1,27 +1,21 @@
-import 'package:financio/features/histories/views/histories_content.dart';
 import 'package:financio/features/wallets/views/wallets_filter_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:financio/utils/formatter.dart';
 import 'package:financio/financio_proviers.dart';
+import 'package:financio/utils/widgets.dart';
 
 class WalletsPage extends ConsumerStatefulWidget {
   const WalletsPage({super.key});
 
   @override
-  HistoriesPageState createState() => HistoriesPageState();
+  WalletsPageState createState() => WalletsPageState();
 }
 
-class HistoriesPageState extends ConsumerState<WalletsPage> {
-  DateTimeRange date = DateTimeRange(
-    start: DateTime.now(),
-    end: DateTime.now(),
-  );
-
+class WalletsPageState extends ConsumerState<WalletsPage> {
   @override
   Widget build(BuildContext context) {
-    final histories = ref.watch(rangedHistoriesProvider(date));
+    final wallets = ref.watch(walletsStream);
 
     return SingleChildScrollView(
       child: Container(
@@ -39,14 +33,20 @@ class HistoriesPageState extends ConsumerState<WalletsPage> {
                       fontSize: 48, fontWeight: FontWeight.w500),
                 ),
                 IconButton(
-                    onPressed: () => showModalBottomSheet(
-                          context: context,
-                          builder: (context) => const WalletsFilterSheet(),
-                        ),
-                    icon: const Icon(Icons.filter_alt_outlined))
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    builder: (context) => const WalletsFilterSheet(),
+                  ),
+                  icon: const Icon(Icons.filter_alt_outlined),
+                )
               ],
             ),
             const SizedBox(height: 24),
+            ...wallets.when(
+              data: (wallets) => wallets.toWalletCards(),
+              error: ((error, stackTrace) => [Container()]),
+              loading: (() => [const CircularProgressIndicator()]),
+            ),
           ],
         ),
       ),

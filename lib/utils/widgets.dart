@@ -5,6 +5,7 @@ import 'package:financio/core/db/collections/wallets.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocation_tile.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_widget.dart';
+import 'package:financio/features/wallets/views/wallet_card.dart';
 import 'package:flutter/material.dart';
 
 extension Widgets on List<Wallets> {
@@ -28,6 +29,17 @@ extension Widgets on List<Wallets> {
     });
 
     list.add(const WalletMenuWidget());
+
+    return list;
+  }
+
+  List<Widget> toWalletCards() {
+    List<Widget> list = [];
+
+    forEach((e) {
+      list.add(WalletCard(wallet: e));
+      list.add(const SizedBox(width: 8));
+    });
 
     return list;
   }
