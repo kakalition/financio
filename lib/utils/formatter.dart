@@ -10,6 +10,14 @@ extension Formatter on int {
   }
 }
 
+extension DoubleFormatter on double {
+  String toRupiah() {
+    return NumberFormat.simpleCurrency(name: "IDR", decimalDigits: 0)
+        .format(this)
+        .replaceAll(',', '.');
+  }
+}
+
 extension DateFormatter on DateTime {
   String toTransactionDate() {
     final formatter = DateFormat("dd MMMM yyyy HH:mm");
@@ -31,8 +39,8 @@ extension DateFormatter on DateTime {
 }
 
 extension ListHistoriesX on List<Histories> {
-  int getTotalSpending() {
-    int total = 0;
+  double getTotalSpending() {
+    double total = 0;
 
     forEach((element) {
       if (element.isSpending == true) total += element.total ?? 0;
@@ -41,8 +49,8 @@ extension ListHistoriesX on List<Histories> {
     return total;
   }
 
-  int getTotalIncome() {
-    int total = 0;
+  double getTotalIncome() {
+    double total = 0;
 
     forEach((element) {
       if (element.isSpending == false) total += element.total ?? 0;

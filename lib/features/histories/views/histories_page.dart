@@ -25,7 +25,7 @@ class HistoriesPage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Histories",
+                  "Riwayat",
                   style: GoogleFonts.poppins(
                       fontSize: 36, fontWeight: FontWeight.w500),
                 ),

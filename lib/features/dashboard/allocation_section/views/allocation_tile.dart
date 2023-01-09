@@ -53,7 +53,7 @@ class AllocationTile extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                          color: surfaceColor2,
+                        color: surfaceColor2,
                       ),
                     ),
                     FractionallySizedBox(

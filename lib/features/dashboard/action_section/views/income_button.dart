@@ -19,7 +19,7 @@ class IncomeButton extends ConsumerWidget {
           builder: (context) => Wrap(children: const [IncomeSheet()]),
         ),
         icon: const Icon(Icons.arrow_downward, size: 16),
-        label: const Text("Income"),
+        label: const Text("Pemasukan"),
         style: OutlinedButton.styleFrom(
           foregroundColor: Theme.of(context).colorScheme.primary,
           padding: const EdgeInsets.symmetric(vertical: 12),

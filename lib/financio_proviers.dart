@@ -26,6 +26,25 @@ Future<Isar> isar(IsarRef ref) async {
 }
 
 @riverpod
+Future<void> deleteData(DeleteDataRef ref) async {
+  final isar = await ref.watch(isarProvider.future);
+  final wallets =
+      (await isar.wallets.where().findAll()).map((e) => e.id).toList();
+
+  final histories =
+      (await isar.histories.where().findAll()).map((e) => e.id).toList();
+
+  final allocations =
+      (await isar.allocations.where().findAll()).map((e) => e.id).toList();
+
+  isar.wallets.deleteAll(wallets);
+  isar.allocations.deleteAll(allocations);
+  isar.allocations.deleteAll(allocations);
+
+  return Future.value();
+}
+
+@riverpod
 Future<WalletRepository> walletRepository(WalletRepositoryRef ref) async {
   final isar = await ref.watch(isarProvider.future);
   final walletRepository = WalletRepository(isar.wallets);

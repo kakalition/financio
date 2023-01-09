@@ -1,6 +1,5 @@
 import 'package:financio/utils/widgets.dart';
 import 'package:financio/commons/widgets/primary_button.dart';
-import 'package:financio/features/histories/providers/histories_providers.dart';
 import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,7 +13,7 @@ class IncomeSheet extends ConsumerStatefulWidget {
 }
 
 class IncomeSheetState extends ConsumerState {
-  int total = 0;
+  double total = 0;
   String note = "";
   int? targetWalletId;
 
@@ -37,7 +36,7 @@ class IncomeSheetState extends ConsumerState {
         const SizedBox(height: 24),
         TextField(
           onChanged: (value) => setState(() {
-            total = int.parse(value);
+            total = double.parse(value);
           }),
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(

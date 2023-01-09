@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$netWorthHash() => r'924909f9ff7e3be6283ffd96ae45582b8ffdfa00';
+String _$netWorthHash() => r'96a1aaa95f225e3e794f055a8e16f42edce3d50c';
 
 /// See also [netWorth].
 final netWorthProvider = AutoDisposeFutureProvider<double>(
@@ -40,7 +40,7 @@ final netWorthProvider = AutoDisposeFutureProvider<double>(
 );
 typedef NetWorthRef = AutoDisposeFutureProviderRef<double>;
 String _$netWorthExcludingAllocationHash() =>
-    r'420e19580079dfadce0979600949b5faf8ce7db1';
+    r'4768429d7fb8b865d7623447d1c9040487768850';
 
 /// See also [netWorthExcludingAllocation].
 final netWorthExcludingAllocationProvider = AutoDisposeFutureProvider<double>(

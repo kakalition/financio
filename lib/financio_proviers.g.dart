@@ -39,6 +39,16 @@ final isarProvider = AutoDisposeFutureProvider<Isar>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$isarHash,
 );
 typedef IsarRef = AutoDisposeFutureProviderRef<Isar>;
+String _$deleteDataHash() => r'8e7274669931767a6324e75e18882eca2c2e0f68';
+
+/// See also [deleteData].
+final deleteDataProvider = AutoDisposeFutureProvider<void>(
+  deleteData,
+  name: r'deleteDataProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$deleteDataHash,
+);
+typedef DeleteDataRef = AutoDisposeFutureProviderRef<void>;
 String _$walletRepositoryHash() => r'547e7cff60903bd72ee08dcf803bb1b7bbdcbf3e';
 
 /// See also [walletRepository].

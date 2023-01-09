@@ -26,7 +26,7 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
           children: [
             const SizedBox(height: 48),
             const WalletSection(),
-            const SizedBox(height: 16),
+            const SizedBox(height: 36),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
@@ -35,9 +35,9 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                 SpendButton(),
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 36),
             const AllocationsSection(),
-            const SizedBox(height: 24),
+            const SizedBox(height: 36),
             const LatestTransactionsSection(),
           ],
         ),

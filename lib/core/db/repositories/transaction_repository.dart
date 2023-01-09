@@ -8,7 +8,7 @@ class TransactionRepository {
 
   TransactionRepository(this._isar);
 
-  Future<void> allocateToWallet(int walletId, int total, String note) async {
+  Future<void> allocateToWallet(int walletId, double total, String note) async {
     return await _isar.writeTxn(() async {
       final wallet = await _isar.wallets.get(walletId);
       wallet?.total = wallet.total! + total;
@@ -28,7 +28,7 @@ class TransactionRepository {
 
   Future<void> deductFromAllocation(
     int allocationId,
-    int total,
+    double total,
     String note,
   ) {
     return _isar.writeTxn(() async {
@@ -47,6 +47,25 @@ class TransactionRepository {
         ..date = DateTime.now();
 
       await _isar.histories.put(history);
+    });
+  }
+
+  Future<void> deleteData() async {
+    return _isar.writeTxn(() async {
+      final wallets =
+          (await _isar.wallets.where().findAll()).map((e) => e.id).toList();
+
+      final histories =
+          (await _isar.histories.where().findAll()).map((e) => e.id).toList();
+
+      final allocations =
+          (await _isar.allocations.where().findAll()).map((e) => e.id).toList();
+
+      _isar.wallets.deleteAll(wallets);
+      _isar.histories.deleteAll(histories);
+      _isar.allocations.deleteAll(allocations);
+
+      return Future.value();
     });
   }
 }

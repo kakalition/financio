@@ -14,7 +14,7 @@ class SpendSheet extends ConsumerStatefulWidget {
 }
 
 class SpendSheetState extends ConsumerState {
-  int total = 0;
+  double total = 0;
   String note = "";
   int? allocationId;
 
@@ -22,7 +22,6 @@ class SpendSheetState extends ConsumerState {
   Widget build(BuildContext context) {
     final allocations = ref.watch(allocationsStream);
     final transactionRepository = ref.watch(transactionRepositoryProvider);
-    final filterState = ref.watch(filterProvider);
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -38,7 +37,7 @@ class SpendSheetState extends ConsumerState {
         const SizedBox(height: 24),
         TextField(
           onChanged: (value) => setState(() {
-            total = int.parse(value);
+            total = double.parse(value);
           }),
           decoration: const InputDecoration(
             isDense: true,

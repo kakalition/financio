@@ -25,13 +25,14 @@ class WalletsPageState extends ConsumerState<WalletsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 48),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Wallets",
+                  "Dompet",
                   style: GoogleFonts.poppins(
-                      fontSize: 48, fontWeight: FontWeight.w500),
+                      fontSize: 36, fontWeight: FontWeight.w500),
                 ),
                 IconButton(
                   onPressed: () => showModalBottomSheet(

@@ -16,16 +16,16 @@ class LatestTransactionsSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Latest Transactions",
+          "Transaksi Terakhir",
           style: GoogleFonts.poppins(
-            fontSize: 36,
-            fontWeight: FontWeight.w500,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 8),
         data.when(
           data: (data) => Column(
-            children: data.toColumnChildren(),
+            children: data.toLatestColumnChildren(),
           ),
           loading: () => const Text("Loading"),
           error: (error, stackTrace) => const Text("Error"),

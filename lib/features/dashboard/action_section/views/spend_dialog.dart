@@ -13,7 +13,7 @@ class SpendDialog extends ConsumerStatefulWidget {
 }
 
 class SpendDialogState extends ConsumerState<SpendDialog> {
-  int total = 0;
+  double total = 0;
   String note = "";
   int? allocationId;
 
@@ -57,7 +57,7 @@ class SpendDialogState extends ConsumerState<SpendDialog> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(
             onChanged: ((value) => setState(() {
-                  total = int.parse(value);
+                  total = double.parse(value);
                 })),
             decoration: const InputDecoration(
               isDense: true,

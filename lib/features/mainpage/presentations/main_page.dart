@@ -21,8 +21,12 @@ class MainPage extends StatelessWidget {
               label: 'Dashboard',
             ),
             BottomNavigationBarItem(
+              icon: Icon(FeatherIcons.creditCard),
+              label: 'Dompet',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(FeatherIcons.clock),
-              label: 'Histories',
+              label: 'Riwayat',
             ),
           ],
           currentIndex: FinancioRouter.calculateNavigationIndex(context),

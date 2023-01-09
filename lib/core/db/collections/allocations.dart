@@ -8,6 +8,6 @@ class Allocations {
   String? name;
   double? total;
   DateTime? createdDate;
-  int? totalLastAllocation;
+  double? totalLastAllocation;
   DateTime? lastAllocationDate;
 }

@@ -1,6 +1,7 @@
 import 'package:financio/features/dashboard/pages/dashboard_page.dart';
 import 'package:financio/features/histories/views/histories_page.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
+import 'package:financio/features/wallets/views/wallets_page.dart';
 import 'package:flutter/material.dart';
 import "package:go_router/go_router.dart";
 
@@ -24,6 +25,15 @@ class FinancioRouter {
                 }),
               ),
               GoRoute(
+                path: "/wallets",
+                pageBuilder: ((context, state) {
+                  return MaterialPage(
+                    child: const WalletsPage(),
+                    key: state.pageKey,
+                  );
+                }),
+              ),
+              GoRoute(
                 path: "/histories",
                 pageBuilder: ((context, state) {
                   return MaterialPage(
@@ -42,8 +52,10 @@ class FinancioRouter {
     final String location = route.location;
     if (location.startsWith('/dashboard')) {
       return 0;
-    } else {
+    } else if (location.startsWith('/wallets')) {
       return 1;
+    } else {
+      return 2;
     }
   }
 
@@ -52,9 +64,9 @@ class FinancioRouter {
       case 0:
         GoRouter.of(context).go('/dashboard');
         break;
-      // case 1:
-      //   GoRouter.of(context).go('/wallets');
-      //   break;
+      case 1:
+        GoRouter.of(context).go('/wallets');
+        break;
       // case 2:
       //   GoRouter.of(context).go('/allocations');
       //   break;

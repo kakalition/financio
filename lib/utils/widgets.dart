@@ -7,6 +7,7 @@ import 'package:financio/features/dashboard/wallet_section/views/wallet_menu_wid
 import 'package:financio/features/dashboard/wallet_section/views/wallet_widget.dart';
 import 'package:financio/features/wallets/views/wallet_card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 extension Widgets on List<Wallets> {
   List<DropdownMenuItem<int>> toDropdownItem() {
@@ -47,6 +48,18 @@ extension Widgets on List<Wallets> {
 
 extension ListAllocationsX on List<Allocations> {
   List<Widget> toAllocationChildren() {
+    if (length == 0) {
+      return [
+        Text(
+          "Kamu tidak memiliki alokasi keuangan.",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+      ];
+    }
+
     List<Widget> walletList = [];
 
     forEach((e) {
@@ -71,6 +84,29 @@ extension ListAllocationsX on List<Allocations> {
 
 extension ListHistoriesWidgetX on List<Histories> {
   List<Widget> toColumnChildren() {
+    List<Widget> walletList = [];
+
+    forEach((e) {
+      walletList.add(HistoryTile(data: e));
+      walletList.add(const SizedBox(height: 8));
+    });
+
+    return walletList;
+  }
+
+  List<Widget> toLatestColumnChildren() {
+    if (length == 0) {
+      return [
+        Text(
+          "Kamu belum melakukan transaksi apapun.",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+      ];
+    }
+
     List<Widget> walletList = [];
 
     forEach((e) {

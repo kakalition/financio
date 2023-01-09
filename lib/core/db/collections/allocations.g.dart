@@ -40,7 +40,7 @@ const AllocationsSchema = CollectionSchema(
     r'totalLastAllocation': PropertySchema(
       id: 4,
       name: r'totalLastAllocation',
-      type: IsarType.long,
+      type: IsarType.double,
     )
   },
   estimateSize: _allocationsEstimateSize,
@@ -82,7 +82,7 @@ void _allocationsSerialize(
   writer.writeDateTime(offsets[1], object.lastAllocationDate);
   writer.writeString(offsets[2], object.name);
   writer.writeDouble(offsets[3], object.total);
-  writer.writeLong(offsets[4], object.totalLastAllocation);
+  writer.writeDouble(offsets[4], object.totalLastAllocation);
 }
 
 Allocations _allocationsDeserialize(
@@ -97,7 +97,7 @@ Allocations _allocationsDeserialize(
   object.lastAllocationDate = reader.readDateTimeOrNull(offsets[1]);
   object.name = reader.readStringOrNull(offsets[2]);
   object.total = reader.readDoubleOrNull(offsets[3]);
-  object.totalLastAllocation = reader.readLongOrNull(offsets[4]);
+  object.totalLastAllocation = reader.readDoubleOrNull(offsets[4]);
   return object;
 }
 
@@ -117,7 +117,7 @@ P _allocationsDeserializeProp<P>(
     case 3:
       return (reader.readDoubleOrNull(offset)) as P;
     case 4:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -664,49 +664,58 @@ extension AllocationsQueryFilter
   }
 
   QueryBuilder<Allocations, Allocations, QAfterFilterCondition>
-      totalLastAllocationEqualTo(int? value) {
+      totalLastAllocationEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'totalLastAllocation',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Allocations, Allocations, QAfterFilterCondition>
       totalLastAllocationGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'totalLastAllocation',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Allocations, Allocations, QAfterFilterCondition>
       totalLastAllocationLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'totalLastAllocation',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Allocations, Allocations, QAfterFilterCondition>
       totalLastAllocationBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -715,6 +724,7 @@ extension AllocationsQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -941,7 +951,7 @@ extension AllocationsQueryProperty
     });
   }
 
-  QueryBuilder<Allocations, int?, QQueryOperations>
+  QueryBuilder<Allocations, double?, QQueryOperations>
       totalLastAllocationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'totalLastAllocation');
