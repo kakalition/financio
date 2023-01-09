@@ -6,7 +6,7 @@ part 'wallets.g.dart';
 class Wallets {
   Id id = Isar.autoIncrement;
   String? name;
-  int? total;
+  double? total;
   bool? isPrimary;
   DateTime? createdDate;
 }

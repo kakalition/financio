@@ -1,4 +1,3 @@
-import 'package:financio/colors.dart';
 import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/utils/formatter.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +21,7 @@ class HistoryTile extends StatelessWidget {
         : "-${data.total?.toRupiah()}";
 
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: surfaceColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         children: [
           Row(

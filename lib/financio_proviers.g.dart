@@ -188,6 +188,80 @@ class RangedHistoriesFamily extends Family<AsyncValue<List<Histories>>> {
   String? get name => r'rangedHistoriesProvider';
 }
 
+String _$rangedHistoriesStreamHash() =>
+    r'cae9d29e740012bd291af0198d610764b2df1751';
+
+/// See also [rangedHistoriesStream].
+class RangedHistoriesStreamProvider
+    extends AutoDisposeFutureProvider<List<Histories>> {
+  RangedHistoriesStreamProvider(
+    this.dateTimeRange,
+  ) : super(
+          (ref) => rangedHistoriesStream(
+            ref,
+            dateTimeRange,
+          ),
+          from: rangedHistoriesStreamProvider,
+          name: r'rangedHistoriesStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$rangedHistoriesStreamHash,
+        );
+
+  final DateTimeRange dateTimeRange;
+
+  @override
+  bool operator ==(Object other) {
+    return other is RangedHistoriesStreamProvider &&
+        other.dateTimeRange == dateTimeRange;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, dateTimeRange.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef RangedHistoriesStreamRef
+    = AutoDisposeFutureProviderRef<List<Histories>>;
+
+/// See also [rangedHistoriesStream].
+final rangedHistoriesStreamProvider = RangedHistoriesStreamFamily();
+
+class RangedHistoriesStreamFamily extends Family<AsyncValue<List<Histories>>> {
+  RangedHistoriesStreamFamily();
+
+  RangedHistoriesStreamProvider call(
+    DateTimeRange dateTimeRange,
+  ) {
+    return RangedHistoriesStreamProvider(
+      dateTimeRange,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Histories>> getProviderOverride(
+    covariant RangedHistoriesStreamProvider provider,
+  ) {
+    return call(
+      provider.dateTimeRange,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'rangedHistoriesStreamProvider';
+}
+
 String _$transactionRepositoryHash() =>
     r'aa8b2324477a284db87bc383ef950e736910c451';
 

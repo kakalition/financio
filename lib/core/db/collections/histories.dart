@@ -7,7 +7,7 @@ class Histories {
   Id id = Isar.autoIncrement;
   bool? isSpending;
   String? walletName;
-  int? total;
+  double? total;
   String? note;
   DateTime? date;
 }

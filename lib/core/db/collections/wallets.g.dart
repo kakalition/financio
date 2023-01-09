@@ -35,7 +35,7 @@ const WalletsSchema = CollectionSchema(
     r'total': PropertySchema(
       id: 3,
       name: r'total',
-      type: IsarType.long,
+      type: IsarType.double,
     )
   },
   estimateSize: _walletsEstimateSize,
@@ -76,7 +76,7 @@ void _walletsSerialize(
   writer.writeDateTime(offsets[0], object.createdDate);
   writer.writeBool(offsets[1], object.isPrimary);
   writer.writeString(offsets[2], object.name);
-  writer.writeLong(offsets[3], object.total);
+  writer.writeDouble(offsets[3], object.total);
 }
 
 Wallets _walletsDeserialize(
@@ -90,7 +90,7 @@ Wallets _walletsDeserialize(
   object.id = id;
   object.isPrimary = reader.readBoolOrNull(offsets[1]);
   object.name = reader.readStringOrNull(offsets[2]);
-  object.total = reader.readLongOrNull(offsets[3]);
+  object.total = reader.readDoubleOrNull(offsets[3]);
   return object;
 }
 
@@ -108,7 +108,7 @@ P _walletsDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -513,46 +513,54 @@ extension WalletsQueryFilter
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalEqualTo(
-      int? value) {
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -561,6 +569,7 @@ extension WalletsQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -739,7 +748,7 @@ extension WalletsQueryProperty
     });
   }
 
-  QueryBuilder<Wallets, int?, QQueryOperations> totalProperty() {
+  QueryBuilder<Wallets, double?, QQueryOperations> totalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'total');
     });
