@@ -33,16 +33,6 @@ class ActionsModalBottomSheet extends StatelessWidget {
         const Divider(height: 1),
         ListTile(
           title: Text(
-            "Set to primary",
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w400,
-              color: Colors.grey[800],
-            ),
-          ),
-          onTap: (() {}),
-        ),
-        ListTile(
-          title: Text(
             "Moves money",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w400,
