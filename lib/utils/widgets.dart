@@ -6,7 +6,9 @@ import 'package:financio/features/dashboard/allocation_section/views/allocation_
 import 'package:financio/features/dashboard/wallet_section/views/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_widget.dart';
 import 'package:financio/features/wallets/views/wallet_card.dart';
+import 'package:financio/routes/financio_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 extension Widgets on List<Wallets> {
@@ -39,7 +41,7 @@ extension Widgets on List<Wallets> {
 
     forEach((e) {
       list.add(WalletCard(wallet: e));
-      list.add(const SizedBox(width: 8));
+      list.add(const SizedBox(height: 8));
     });
 
     return list;
@@ -115,5 +117,29 @@ extension ListHistoriesWidgetX on List<Histories> {
     });
 
     return walletList;
+  }
+}
+
+class WidgetUtils {
+  static Widget createNavigationBar(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.home),
+          label: 'Dashboard',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.creditCard),
+          label: 'Dompet',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.clock),
+          label: 'Riwayat',
+        ),
+      ],
+      currentIndex: FinancioRouter.calculateNavigationIndex(context),
+      onTap: (value) => FinancioRouter.onNavigationItemTapped(value, context),
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:financio/commons/enums/wallets_filter.dart';
 import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/core/db/collections/wallets.dart';
@@ -64,6 +65,22 @@ final walletsStream = StreamProvider.autoDispose((ref) async* {
   final isar = await ref.watch(isarProvider.future);
 
   yield* isar.wallets.where().sortByName().watch(fireImmediately: true);
+});
+
+final walletsStreamSorted = StreamProvider.autoDispose
+    .family<List<Wallets>, WalletsFilter>((ref, filter) async* {
+  final isar = await ref.watch(isarProvider.future);
+
+  final query = isar.wallets.where();
+  if (filter == WalletsFilter.nameAscending) {
+    yield* query.sortByName().watch(fireImmediately: true);
+  } else if (filter == WalletsFilter.nameDescending) {
+    yield* query.sortByNameDesc().watch(fireImmediately: true);
+  } else if (filter == WalletsFilter.totalAscending) {
+    yield* query.sortByTotal().watch(fireImmediately: true);
+  } else {
+    yield* query.sortByTotalDesc().watch(fireImmediately: true);
+  }
 });
 
 @riverpod

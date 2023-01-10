@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class MainPage extends StatelessWidget {
-  final Widget body;
-  const MainPage({super.key, required this.body});
+  final Widget Function(BuildContext) bodyBuilder;
+  final Widget Function(BuildContext)? fabBuilder;
+  const MainPage({super.key, required this.bodyBuilder, this.fabBuilder});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       home: Scaffold(
-        body: body,
+        floatingActionButton:
+            fabBuilder != null ? Builder(builder: fabBuilder!) : null,
+        body: Builder(builder: bodyBuilder),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
