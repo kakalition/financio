@@ -22,15 +22,20 @@ const WalletsSchema = CollectionSchema(
       name: r'createdDate',
       type: IsarType.dateTime,
     ),
-    r'name': PropertySchema(
+    r'isPrimary': PropertySchema(
       id: 1,
+      name: r'isPrimary',
+      type: IsarType.bool,
+    ),
+    r'name': PropertySchema(
+      id: 2,
       name: r'name',
       type: IsarType.string,
     ),
     r'total': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'total',
-      type: IsarType.long,
+      type: IsarType.double,
     )
   },
   estimateSize: _walletsEstimateSize,
@@ -69,8 +74,9 @@ void _walletsSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTime(offsets[0], object.createdDate);
-  writer.writeString(offsets[1], object.name);
-  writer.writeLong(offsets[2], object.total);
+  writer.writeBool(offsets[1], object.isPrimary);
+  writer.writeString(offsets[2], object.name);
+  writer.writeDouble(offsets[3], object.total);
 }
 
 Wallets _walletsDeserialize(
@@ -82,8 +88,9 @@ Wallets _walletsDeserialize(
   final object = Wallets();
   object.createdDate = reader.readDateTimeOrNull(offsets[0]);
   object.id = id;
-  object.name = reader.readStringOrNull(offsets[1]);
-  object.total = reader.readLongOrNull(offsets[2]);
+  object.isPrimary = reader.readBoolOrNull(offsets[1]);
+  object.name = reader.readStringOrNull(offsets[2]);
+  object.total = reader.readDoubleOrNull(offsets[3]);
   return object;
 }
 
@@ -97,9 +104,11 @@ P _walletsDeserializeProp<P>(
     case 0:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 2:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
+    case 3:
+      return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -315,6 +324,32 @@ extension WalletsQueryFilter
     });
   }
 
+  QueryBuilder<Wallets, Wallets, QAfterFilterCondition> isPrimaryIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isPrimary',
+      ));
+    });
+  }
+
+  QueryBuilder<Wallets, Wallets, QAfterFilterCondition> isPrimaryIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isPrimary',
+      ));
+    });
+  }
+
+  QueryBuilder<Wallets, Wallets, QAfterFilterCondition> isPrimaryEqualTo(
+      bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isPrimary',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> nameIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -478,46 +513,54 @@ extension WalletsQueryFilter
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalEqualTo(
-      int? value) {
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Wallets, Wallets, QAfterFilterCondition> totalBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -526,6 +569,7 @@ extension WalletsQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -547,6 +591,18 @@ extension WalletsQuerySortBy on QueryBuilder<Wallets, Wallets, QSortBy> {
   QueryBuilder<Wallets, Wallets, QAfterSortBy> sortByCreatedDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'createdDate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Wallets, Wallets, QAfterSortBy> sortByIsPrimary() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isPrimary', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Wallets, Wallets, QAfterSortBy> sortByIsPrimaryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isPrimary', Sort.desc);
     });
   }
 
@@ -601,6 +657,18 @@ extension WalletsQuerySortThenBy
     });
   }
 
+  QueryBuilder<Wallets, Wallets, QAfterSortBy> thenByIsPrimary() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isPrimary', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Wallets, Wallets, QAfterSortBy> thenByIsPrimaryDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isPrimary', Sort.desc);
+    });
+  }
+
   QueryBuilder<Wallets, Wallets, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -634,6 +702,12 @@ extension WalletsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Wallets, Wallets, QDistinct> distinctByIsPrimary() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isPrimary');
+    });
+  }
+
   QueryBuilder<Wallets, Wallets, QDistinct> distinctByName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -662,13 +736,19 @@ extension WalletsQueryProperty
     });
   }
 
+  QueryBuilder<Wallets, bool?, QQueryOperations> isPrimaryProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isPrimary');
+    });
+  }
+
   QueryBuilder<Wallets, String?, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
   }
 
-  QueryBuilder<Wallets, int?, QQueryOperations> totalProperty() {
+  QueryBuilder<Wallets, double?, QQueryOperations> totalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'total');
     });

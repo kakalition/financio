@@ -19,7 +19,7 @@ class DashboardActionService {
     this._historyRepository,
   );
 
-  void addIncome(Wallets wallet, int total, String note) {
+  void addIncome(Wallets wallet, double total, String note) {
     _isar.writeTxn(() {
       wallet.total = wallet.total ?? 0 + total;
 
@@ -36,7 +36,7 @@ class DashboardActionService {
     });
   }
 
-  void addExpense(Allocations allocation, int total, String note) {
+  void addExpense(Allocations allocation, double total, String note) {
     _isar.writeTxn(() {
       allocation.total = allocation.total ?? 0 - total;
 

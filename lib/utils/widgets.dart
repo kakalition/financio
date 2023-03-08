@@ -5,7 +5,11 @@ import 'package:financio/core/db/collections/wallets.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocation_tile.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_menu_widget.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_widget.dart';
+import 'package:financio/features/wallets/views/wallet_card.dart';
+import 'package:financio/routes/financio_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 extension Widgets on List<Wallets> {
   List<DropdownMenuItem<int>> toDropdownItem() {
@@ -31,10 +35,33 @@ extension Widgets on List<Wallets> {
 
     return list;
   }
+
+  List<Widget> toWalletCards() {
+    List<Widget> list = [];
+
+    forEach((e) {
+      list.add(WalletCard(wallet: e));
+      list.add(const SizedBox(height: 8));
+    });
+
+    return list;
+  }
 }
 
 extension ListAllocationsX on List<Allocations> {
   List<Widget> toAllocationChildren() {
+    if (length == 0) {
+      return [
+        Text(
+          "Kamu tidak memiliki alokasi keuangan.",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+      ];
+    }
+
     List<Widget> walletList = [];
 
     forEach((e) {
@@ -63,9 +90,60 @@ extension ListHistoriesWidgetX on List<Histories> {
 
     forEach((e) {
       walletList.add(HistoryTile(data: e));
-      walletList.add(const SizedBox(height: 8));
+      walletList.add(const SizedBox(height: 2));
     });
 
     return walletList;
+  }
+
+  List<Widget> toLatestColumnChildren() {
+    if (length == 0) {
+      return [
+        Text(
+          "Kamu belum melakukan transaksi apapun.",
+          style: GoogleFonts.poppins(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+      ];
+    }
+
+    List<Widget> walletList = [];
+
+    forEach((e) {
+      walletList.add(HistoryTile(data: e));
+      walletList.add(const SizedBox(height: 2));
+    });
+
+    return walletList;
+  }
+}
+
+class WidgetUtils {
+  static Widget createNavigationBar(BuildContext context) {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.home),
+          label: 'Dashboard',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.creditCard),
+          label: 'Dompet',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.barChart2),
+          label: 'Alokasi',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.clock),
+          label: 'Riwayat',
+        ),
+      ],
+      currentIndex: FinancioRouter.calculateNavigationIndex(context),
+      onTap: (value) => FinancioRouter.onNavigationItemTapped(value, context),
+    );
   }
 }

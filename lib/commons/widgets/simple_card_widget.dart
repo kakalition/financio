@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +11,7 @@ class SimpleCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: surfaceColor,
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(16),

@@ -17,15 +17,15 @@ class AllocationsSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Allocations",
+          "Alokasi",
           style: GoogleFonts.poppins(
-            fontSize: 36,
-            fontWeight: FontWeight.w500,
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 16),
-        const AllocationMenu(),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
+        // const AllocationMenu(),
+        // const SizedBox(height: 8),
         data.when(
           data: (data) => Column(
             children: data.toAllocationChildren(),

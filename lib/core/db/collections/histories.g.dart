@@ -35,7 +35,7 @@ const HistoriesSchema = CollectionSchema(
     r'total': PropertySchema(
       id: 3,
       name: r'total',
-      type: IsarType.long,
+      type: IsarType.double,
     ),
     r'walletName': PropertySchema(
       id: 4,
@@ -87,7 +87,7 @@ void _historiesSerialize(
   writer.writeDateTime(offsets[0], object.date);
   writer.writeBool(offsets[1], object.isSpending);
   writer.writeString(offsets[2], object.note);
-  writer.writeLong(offsets[3], object.total);
+  writer.writeDouble(offsets[3], object.total);
   writer.writeString(offsets[4], object.walletName);
 }
 
@@ -102,7 +102,7 @@ Histories _historiesDeserialize(
   object.id = id;
   object.isSpending = reader.readBoolOrNull(offsets[1]);
   object.note = reader.readStringOrNull(offsets[2]);
-  object.total = reader.readLongOrNull(offsets[3]);
+  object.total = reader.readDoubleOrNull(offsets[3]);
   object.walletName = reader.readStringOrNull(offsets[4]);
   return object;
 }
@@ -121,7 +121,7 @@ P _historiesDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
@@ -532,46 +532,54 @@ extension HistoriesQueryFilter
   }
 
   QueryBuilder<Histories, Histories, QAfterFilterCondition> totalEqualTo(
-      int? value) {
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Histories, Histories, QAfterFilterCondition> totalGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Histories, Histories, QAfterFilterCondition> totalLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'total',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Histories, Histories, QAfterFilterCondition> totalBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -580,6 +588,7 @@ extension HistoriesQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -940,7 +949,7 @@ extension HistoriesQueryProperty
     });
   }
 
-  QueryBuilder<Histories, int?, QQueryOperations> totalProperty() {
+  QueryBuilder<Histories, double?, QQueryOperations> totalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'total');
     });

@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:financio/features/dashboard/wallet_section/views/new_wallet_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class WalletMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.grey[100],
+      color: surfaceColor,
       child: InkWell(
         onTap: () {
           showDialog(
@@ -21,7 +22,7 @@ class WalletMenuWidget extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
           ),
-          child: const Icon(Icons.add),
+          child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class HistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleText = data.isSpending == false
-        ? "Income to ${data.walletName} Wallet"
+        ? "Pemasukan ke ${data.walletName}"
         : data.walletName;
 
     final totalText = data.isSpending == false
@@ -21,11 +21,7 @@ class HistoryTile extends StatelessWidget {
         : "-${data.total?.toRupiah()}";
 
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(8),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         children: [
           Row(

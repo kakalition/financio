@@ -14,16 +14,16 @@ class HistoriesContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final element = histories.isEmpty
         ? Text(
-            "No Transaction Found",
+            "Transaksi Tidak Ditemukan",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w400,
               color: Colors.grey[900],
-              fontSize: 36,
+              fontSize: 24,
             ),
           )
         : SectionedHistories(list: histories);
 
-    return Column(children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       HistoriesSummaries(
         totalIncome: histories.getTotalIncome(),
         totalSpending: histories.getTotalSpending(),

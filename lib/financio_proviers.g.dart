@@ -39,6 +39,16 @@ final isarProvider = AutoDisposeFutureProvider<Isar>(
       const bool.fromEnvironment('dart.vm.product') ? null : _$isarHash,
 );
 typedef IsarRef = AutoDisposeFutureProviderRef<Isar>;
+String _$deleteDataHash() => r'8e7274669931767a6324e75e18882eca2c2e0f68';
+
+/// See also [deleteData].
+final deleteDataProvider = AutoDisposeFutureProvider<void>(
+  deleteData,
+  name: r'deleteDataProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$deleteDataHash,
+);
+typedef DeleteDataRef = AutoDisposeFutureProviderRef<void>;
 String _$walletRepositoryHash() => r'547e7cff60903bd72ee08dcf803bb1b7bbdcbf3e';
 
 /// See also [walletRepository].
@@ -186,6 +196,80 @@ class RangedHistoriesFamily extends Family<AsyncValue<List<Histories>>> {
 
   @override
   String? get name => r'rangedHistoriesProvider';
+}
+
+String _$rangedHistoriesStreamHash() =>
+    r'cae9d29e740012bd291af0198d610764b2df1751';
+
+/// See also [rangedHistoriesStream].
+class RangedHistoriesStreamProvider
+    extends AutoDisposeFutureProvider<List<Histories>> {
+  RangedHistoriesStreamProvider(
+    this.dateTimeRange,
+  ) : super(
+          (ref) => rangedHistoriesStream(
+            ref,
+            dateTimeRange,
+          ),
+          from: rangedHistoriesStreamProvider,
+          name: r'rangedHistoriesStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$rangedHistoriesStreamHash,
+        );
+
+  final DateTimeRange dateTimeRange;
+
+  @override
+  bool operator ==(Object other) {
+    return other is RangedHistoriesStreamProvider &&
+        other.dateTimeRange == dateTimeRange;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, dateTimeRange.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef RangedHistoriesStreamRef
+    = AutoDisposeFutureProviderRef<List<Histories>>;
+
+/// See also [rangedHistoriesStream].
+final rangedHistoriesStreamProvider = RangedHistoriesStreamFamily();
+
+class RangedHistoriesStreamFamily extends Family<AsyncValue<List<Histories>>> {
+  RangedHistoriesStreamFamily();
+
+  RangedHistoriesStreamProvider call(
+    DateTimeRange dateTimeRange,
+  ) {
+    return RangedHistoriesStreamProvider(
+      dateTimeRange,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Histories>> getProviderOverride(
+    covariant RangedHistoriesStreamProvider provider,
+  ) {
+    return call(
+      provider.dateTimeRange,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'rangedHistoriesStreamProvider';
 }
 
 String _$transactionRepositoryHash() =>

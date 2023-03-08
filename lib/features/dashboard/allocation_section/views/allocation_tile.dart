@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/utils/formatter.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +10,12 @@ class AllocationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fractionValue =
-        allocation.total! / allocation.totalLastAllocation!;
+    final fractionValue = allocation.total! / allocation.totalLastAllocation!;
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: surfaceColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -53,7 +53,7 @@ class AllocationTile extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        color: Colors.grey[300],
+                        color: surfaceColor2,
                       ),
                     ),
                     FractionallySizedBox(
@@ -63,7 +63,7 @@ class AllocationTile extends StatelessWidget {
                         width: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: Colors.grey[800],
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),

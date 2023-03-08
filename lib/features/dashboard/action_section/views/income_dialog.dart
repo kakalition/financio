@@ -11,7 +11,7 @@ class IncomeDialog extends ConsumerStatefulWidget {
 }
 
 class IncomeDialogState extends ConsumerState<IncomeDialog> {
-  int total = 0;
+  double total = 0;
   String note = "";
   int? targetWalletId;
 
@@ -49,7 +49,7 @@ class IncomeDialogState extends ConsumerState<IncomeDialog> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(
             onChanged: (value) => setState(() {
-              total = int.parse(value);
+              total = double.parse(value);
             }),
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(

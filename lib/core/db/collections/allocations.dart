@@ -6,8 +6,8 @@ part 'allocations.g.dart';
 class Allocations {
   Id id = Isar.autoIncrement;
   String? name;
-  int? total;
+  double? total;
   DateTime? createdDate;
-  int? totalLastAllocation;
+  double? totalLastAllocation;
   DateTime? lastAllocationDate;
 }

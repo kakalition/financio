@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:financio/color_schemes.g.dart';
 import 'package:financio/routes/financio_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,10 +23,7 @@ class Financio extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: FinancioRouter.getRouter(),
       title: 'Financio',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
     );
   }
 }

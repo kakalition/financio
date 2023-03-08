@@ -15,7 +15,7 @@ class AllocationRepository {
     return await data;
   }
 
-  Future<int> add(String name, int initialTotal, int? deductionWalletId) {
+  Future<int> add(String name, double initialTotal, int? deductionWalletId) {
     return _collection.isar.writeTxn(() async {
       final allocation = Allocations()
         ..name = name

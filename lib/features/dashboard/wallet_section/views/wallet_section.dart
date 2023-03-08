@@ -1,5 +1,5 @@
-import 'package:financio/financio_proviers.dart';
-import 'package:financio/utils/widgets.dart';
+import 'package:financio/features/dashboard/wallet_section/providers/money_providers.dart';
+import 'package:financio/utils/formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,28 +9,30 @@ class WalletSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wallets = ref.watch(walletsStream);
+    final netWorth = ref.watch(netWorthProvider);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Wallets",
-          style: GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w500),
+          "Total Uang",
+          style: GoogleFonts.poppins(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+          ),
         ),
-        const SizedBox(height: 24),
-        SizedBox(
-          height: 96,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: wallets.when(
-              data: (data) => Row(children: data.toWallets()),
-              loading: () => const Text("Still loading"),
-              error: (error, stackTrace) => Text(
-                error.toString(),
-              ),
+        netWorth.when(
+          data: (data) => Text(
+            data.toRupiah(),
+            style: GoogleFonts.poppins(
+              fontSize: 48,
+              fontWeight: FontWeight.w500,
             ),
+          ),
+          loading: () => const Text("Still loading"),
+          error: (error, stackTrace) => Text(
+            error.toString(),
           ),
         ),
       ],

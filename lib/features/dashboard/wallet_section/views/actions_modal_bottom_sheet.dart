@@ -49,7 +49,8 @@ class ActionsModalBottomSheet extends StatelessWidget {
               color: Colors.grey[800],
             ),
           ),
-          onTap: (() {}),
+          onTap: (() async {
+          }),
         ),
         ListTile(
           title: Text(

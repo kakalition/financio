@@ -23,11 +23,11 @@ class NewWalletDialogState extends ConsumerState<NewWalletDialog> {
       ref.invalidate(walletsProvider);
     });
 
+    Navigator.of(context).pop();
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Wallet added successfully.")),
     );
-
-    Navigator.of(context).pop();
   }
 
   @override

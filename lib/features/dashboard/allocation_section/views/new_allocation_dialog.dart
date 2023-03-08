@@ -14,7 +14,7 @@ class NewAllocationDialog extends ConsumerStatefulWidget {
 
 class NewAllocationDialogState extends ConsumerState<NewAllocationDialog> {
   String name = "";
-  int initialAllocation = 0;
+  double initialAllocation = 0;
   int? targetWalletId;
 
   void newAllocationHandler(
@@ -80,7 +80,7 @@ class NewAllocationDialogState extends ConsumerState<NewAllocationDialog> {
                 if (value == "") {
                   initialAllocation = 0;
                 } else {
-                  initialAllocation = int.parse(value);
+                  initialAllocation = double.parse(value);
                 }
               });
             },

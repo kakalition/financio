@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:financio/utils/formatter.dart';
 
 class HistoriesSummaries extends StatelessWidget {
-  final int totalIncome;
-  final int totalSpending;
+  final double totalIncome;
+  final double totalSpending;
 
   const HistoriesSummaries({
     super.key,
@@ -18,14 +18,14 @@ class HistoriesSummaries extends StatelessWidget {
       children: [
         Expanded(
           child: SimpleCardWidget(
-            title: "Total Income",
+            title: "Total Pemasukan",
             body: totalIncome.toRupiah(),
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: SimpleCardWidget(
-            title: "Total Spending",
+            title: "Total Pengeluaran",
             body: totalSpending.toRupiah(),
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:financio/features/dashboard/allocation_section/views/new_allocation_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class AllocationMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.grey[100],
+      color: surfaceColor,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
@@ -23,7 +24,7 @@ class AllocationMenu extends StatelessWidget {
             horizontal: 8,
             vertical: 8,
           ),
-          child: const Icon(Icons.add),
+          child: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );
