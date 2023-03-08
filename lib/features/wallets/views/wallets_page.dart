@@ -44,8 +44,9 @@ class WalletsPageState extends ConsumerState<WalletsPage> {
       bottomNavigationBar: WidgetUtils.createNavigationBar(context),
       body: SingleChildScrollView(
         child: ConstrainedBox(
-          constraints:
-              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - 58,
+          ),
           child: Container(
             padding: const EdgeInsets.all(24),
             color: Theme.of(context).colorScheme.surface,
