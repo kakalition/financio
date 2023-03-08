@@ -61,7 +61,7 @@ class NewAllocationSheetState extends ConsumerState {
               labelText: "Total Alokasi",
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 24),
           PrimaryButton(
             text: "Simpan",
             onTap: () {
