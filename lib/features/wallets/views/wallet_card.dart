@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:financio/core/db/collections/wallets.dart';
 import 'package:financio/features/wallets/views/actions_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class WalletCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.grey[100],
+      color: surfaceColor,
       child: InkWell(
         onTap: () {
           showModalBottomSheet(

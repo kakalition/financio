@@ -90,7 +90,7 @@ extension ListHistoriesWidgetX on List<Histories> {
 
     forEach((e) {
       walletList.add(HistoryTile(data: e));
-      walletList.add(const SizedBox(height: 8));
+      walletList.add(const SizedBox(height: 2));
     });
 
     return walletList;
@@ -113,7 +113,7 @@ extension ListHistoriesWidgetX on List<Histories> {
 
     forEach((e) {
       walletList.add(HistoryTile(data: e));
-      walletList.add(const SizedBox(height: 8));
+      walletList.add(const SizedBox(height: 2));
     });
 
     return walletList;
@@ -132,6 +132,10 @@ class WidgetUtils {
         BottomNavigationBarItem(
           icon: Icon(FeatherIcons.creditCard),
           label: 'Dompet',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(FeatherIcons.barChart2),
+          label: 'Alokasi',
         ),
         BottomNavigationBarItem(
           icon: Icon(FeatherIcons.clock),

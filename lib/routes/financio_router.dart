@@ -1,3 +1,4 @@
+import 'package:financio/features/allocations/views/allocations_page.dart';
 import 'package:financio/features/dashboard/pages/dashboard_page.dart';
 import 'package:financio/features/histories/views/histories_page.dart';
 import 'package:financio/features/wallets/views/wallets_page.dart';
@@ -7,7 +8,7 @@ import "package:go_router/go_router.dart";
 class FinancioRouter {
   static GoRouter getRouter() {
     return GoRouter(
-      initialLocation: "/wallets",
+      initialLocation: "/dashboard",
       routes: [
         ShellRoute(
           builder: ((context, state, child) {
@@ -21,6 +22,10 @@ class FinancioRouter {
             GoRoute(
               path: "/wallets",
               builder: ((context, state) => const WalletsPage()),
+            ),
+            GoRoute(
+              path: "/allocations",
+              builder: ((context, state) => const AllocationsPage()),
             ),
             GoRoute(
               path: "/histories",
@@ -39,8 +44,10 @@ class FinancioRouter {
       return 0;
     } else if (location.startsWith('/wallets')) {
       return 1;
-    } else {
+    } else if (location.startsWith('/allocations')) {
       return 2;
+    } else {
+      return 3;
     }
   }
 
@@ -52,9 +59,9 @@ class FinancioRouter {
       case 1:
         GoRouter.of(context).go('/wallets');
         break;
-      // case 2:
-      //   GoRouter.of(context).go('/allocations');
-      //   break;
+      case 2:
+        GoRouter.of(context).go('/allocations');
+        break;
       default:
         GoRouter.of(context).go('/histories');
         break;

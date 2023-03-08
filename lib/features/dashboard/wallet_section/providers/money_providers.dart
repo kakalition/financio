@@ -8,20 +8,19 @@ part 'money_providers.g.dart';
 
 @riverpod
 Future<double> netWorth(NetWorthRef ref) async {
-  final Isar isar = await ref.watch(isarProvider.future);
+  final wallets = await ref.watch(walletsStream.future);
+  final allocations = await ref.watch(allocationsStream.future);
 
-  final walletsTotal =
-      (await isar.wallets.where().findAll()).map((e) => e.total ?? 0);
+  final walletsTotal = wallets.map((e) => e.total ?? 0);
 
-  final totalOnWallets = walletsTotal.length != 0
+  final totalOnWallets = walletsTotal.isNotEmpty
       ? walletsTotal.reduce((value, element) => value + element)
       : 0.0;
 
-  final allocationsTotal =
-      (await isar.allocations.where().findAll()).map((e) => e.total ?? 0);
+  final allocationsTotal = allocations.map((e) => e.total ?? 0);
 
-  final totalOnAllocations = allocationsTotal.length != 0
-      ? walletsTotal.reduce((value, element) => value + element)
+  final totalOnAllocations = allocationsTotal.isNotEmpty
+      ? allocationsTotal.reduce((value, element) => value + element)
       : 0.0;
 
   return totalOnWallets + totalOnAllocations;

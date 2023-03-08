@@ -22,7 +22,7 @@ class LatestTransactionsSection extends ConsumerWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         data.when(
           data: (data) => Column(
             children: data.toLatestColumnChildren(),

@@ -23,7 +23,7 @@ class AllocationsSection extends ConsumerWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         // const AllocationMenu(),
         // const SizedBox(height: 8),
         data.when(

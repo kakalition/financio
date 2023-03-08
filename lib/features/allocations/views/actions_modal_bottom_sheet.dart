@@ -1,5 +1,4 @@
 import 'package:financio/features/dashboard/wallet_section/views/delete_confirmation_dialog.dart';
-import 'package:financio/features/wallets/views/moves_money_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,7 +22,7 @@ class ActionsModalBottomSheet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: Text(
-            title,
+            "$title Wallet",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
               color: Colors.grey[800],
@@ -34,7 +33,27 @@ class ActionsModalBottomSheet extends StatelessWidget {
         const Divider(height: 1),
         ListTile(
           title: Text(
-            "Pindahkan uang",
+            "Moves money",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w400,
+              color: Colors.grey[800],
+            ),
+          ),
+          onTap: (() {}),
+        ),
+        ListTile(
+          title: Text(
+            "Edit wallet",
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w400,
+              color: Colors.grey[800],
+            ),
+          ),
+          onTap: (() {}),
+        ),
+        ListTile(
+          title: Text(
+            "Delete wallet",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w400,
               color: Colors.grey[800],
@@ -42,31 +61,6 @@ class ActionsModalBottomSheet extends StatelessWidget {
           ),
           onTap: (() {
             Navigator.of(context).pop();
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => MovesMoneySheet(id: id),
-            );
-          }),
-        ),
-        // ListTile(
-        //   title: Text(
-        //     "Edit wallet",
-        //     style: GoogleFonts.poppins(
-        //       fontWeight: FontWeight.w400,
-        //       color: Colors.grey[800],
-        //     ),
-        //   ),
-        //   onTap: (() {}),
-        // ),
-        ListTile(
-          title: Text(
-            "Hapus dompet",
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w400,
-              color: Colors.grey[800],
-            ),
-          ),
-          onTap: (() {
             showDialog(
               context: context,
               builder: (context) => DeleteConfirmationDialog(id: id),

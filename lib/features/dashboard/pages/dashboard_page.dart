@@ -4,6 +4,7 @@ import 'package:financio/features/dashboard/allocation_section/views/allocations
 import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_section.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
+import 'package:financio/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,8 +18,9 @@ class DashboardPage extends ConsumerStatefulWidget {
 class DashboardPageState extends ConsumerState<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    return MainPage(
-      bodyBuilder: (context) => SingleChildScrollView(
+    return Scaffold(
+      bottomNavigationBar: WidgetUtils.createNavigationBar(context),
+      body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height - 58,

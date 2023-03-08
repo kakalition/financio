@@ -13,7 +13,7 @@ class HistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleText = data.isSpending == false
-        ? "Income to ${data.walletName} Wallet"
+        ? "Pemasukan ke ${data.walletName}"
         : data.walletName;
 
     final totalText = data.isSpending == false
