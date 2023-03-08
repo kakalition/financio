@@ -1,5 +1,5 @@
 import 'package:financio/commons/enums/allocations_filter.dart';
-import 'package:financio/features/dashboard/allocation_section/views/new_allocation_dialog.dart';
+import 'package:financio/features/allocations/views/new_allocation_sheet.dart';
 import 'package:financio/features/allocations/views/allocations_filter_sheet.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +35,11 @@ class AllocationsPageState extends ConsumerState<AllocationsPage> {
           color: Theme.of(context).colorScheme.onTertiary,
         ),
         onPressed: () {
-          showDialog(
+          showModalBottomSheet(
+            isScrollControlled: true,
+            useRootNavigator: true,
             context: context,
-            builder: (context) => const NewAllocationDialog(),
+            builder: (context) => Wrap(children: const [NewAllocationSheet()]),
           );
         },
       ),

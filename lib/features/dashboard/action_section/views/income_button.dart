@@ -1,4 +1,3 @@
-import 'package:financio/features/dashboard/action_section/views/income_dialog.dart';
 import 'package:financio/features/dashboard/action_section/views/income_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
