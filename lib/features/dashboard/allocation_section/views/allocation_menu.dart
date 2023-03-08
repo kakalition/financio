@@ -1,5 +1,5 @@
 import 'package:financio/colors.dart';
-import 'package:financio/features/dashboard/allocation_section/views/new_allocation_dialog.dart';
+import 'package:financio/features/allocations/views/new_allocation_sheet.dart';
 import 'package:flutter/material.dart';
 
 class AllocationMenu extends StatelessWidget {
@@ -13,9 +13,11 @@ class AllocationMenu extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          showDialog(
+          showModalBottomSheet(
+            isScrollControlled: true,
+            useRootNavigator: true,
             context: context,
-            builder: (context) => const NewAllocationDialog(),
+            builder: (context) => Wrap(children: const [NewAllocationSheet()]),
           );
         },
         child: Container(
