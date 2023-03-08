@@ -17,19 +17,55 @@ class FinancioRouter {
           routes: [
             GoRoute(
               path: "/dashboard",
-              builder: ((context, state) => const DashboardPage()),
+              pageBuilder: (context, state) => CustomTransitionPage<void>(
+                child: const DashboardPage(),
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) =>
+                    FadeTransition(opacity: animation, child: child),
+              ),
             ),
             GoRoute(
               path: "/wallets",
-              builder: ((context, state) => const WalletsPage()),
+              pageBuilder: (context, state) => CustomTransitionPage<void>(
+                child: const WalletsPage(),
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) =>
+                    FadeTransition(opacity: animation, child: child),
+              ),
             ),
             GoRoute(
               path: "/allocations",
-              builder: ((context, state) => const AllocationsPage()),
+              pageBuilder: (context, state) => CustomTransitionPage<void>(
+                child: const AllocationsPage(),
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) =>
+                    FadeTransition(opacity: animation, child: child),
+              ),
             ),
             GoRoute(
               path: "/histories",
-              builder: ((context, state) => const HistoriesPage()),
+              pageBuilder: (context, state) => CustomTransitionPage<void>(
+                child: const HistoriesPage(),
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) =>
+                    FadeTransition(opacity: animation, child: child),
+              ),
             )
           ],
         ),
