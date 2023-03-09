@@ -11,7 +11,7 @@ class SummarySection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final date = DateTime.now();
     final daysName = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
-    final calendarWidget = generateCalendar(context, DateTime(2023, 2));
+    final calendarWidget = generateCalendar(context, date);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -67,14 +67,13 @@ List<Widget> generateCalendar(BuildContext context, DateTime date) {
   final firstDayLocation = firstDayInMonth.weekday - 1;
   final lastDayInMonth = DateTime(date.year, date.month + 1, 1);
   final totalDays = lastDayInMonth.difference(firstDayInMonth).inDays + 1;
-  const int totalWeeks = 6;
 
   int dayCount = 0;
-  for (int i = 0; i < totalWeeks; i++) {
-    final children = <Widget>[];
 
-    for (int j = 0; j < 7; j++) {
-      if (i == 0 && j < firstDayLocation) {
+  while (dayCount != totalDays) {
+    final children = <Widget>[];
+    for (int i = 0; i < 7; i++) {
+      if (result.isEmpty && i < firstDayLocation) {
         children.add(const SizedBox(
           height: 32,
           width: 32,
