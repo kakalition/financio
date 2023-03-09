@@ -2,6 +2,7 @@ import 'package:financio/features/dashboard/action_section/views/income_button.d
 import 'package:financio/features/dashboard/action_section/views/spend_button.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocations_section.dart';
 import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
+import 'package:financio/features/dashboard/summary_section/views/summary_section.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_section.dart';
 import 'package:financio/features/mainpage/presentations/main_page.dart';
 import 'package:financio/utils/widgets.dart';
@@ -43,6 +44,8 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                     SpendButton(),
                   ],
                 ),
+                const SizedBox(height: 36),
+                const SummarySection(),
                 const SizedBox(height: 36),
                 const AllocationsSection(),
                 const SizedBox(height: 36),
