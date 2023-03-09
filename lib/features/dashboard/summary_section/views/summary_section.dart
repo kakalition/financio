@@ -1,4 +1,6 @@
 import 'package:financio/colors.dart';
+import 'package:financio/features/dashboard/action_section/views/income_sheet.dart';
+import 'package:financio/features/dashboard/summary_section/views/summary_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,12 +45,18 @@ class SummarySection extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: daysName
               .map(
-                (e) => Text(
-                  e,
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                    color: Theme.of(context).colorScheme.primary,
+                (e) => SizedBox(
+                  height: 24,
+                  width: 32,
+                  child: Center(
+                    child: Text(
+                      e,
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
                   ),
                 ),
               )
@@ -75,8 +83,8 @@ List<Widget> generateCalendar(BuildContext context, DateTime date) {
     for (int i = 0; i < 7; i++) {
       if (result.isEmpty && i < firstDayLocation) {
         children.add(const SizedBox(
-          height: 32,
-          width: 32,
+          height: 36,
+          width: 36,
         ));
         continue;
       }
@@ -85,29 +93,14 @@ List<Widget> generateCalendar(BuildContext context, DateTime date) {
       if (dayCount == totalDays) break;
 
       children.add(
-        Container(
-          height: 32,
-          width: 32,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4), color: surfaceColor2),
-          child: Center(
-            child: Text(
-              dayCount.toString(),
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-          ),
-        ),
+        DayTile(date: DateTime(date.year, date.month, dayCount)),
       );
     }
 
     while (children.length < 7) {
       children.add(const SizedBox(
-        height: 32,
-        width: 32,
+        height: 36,
+        width: 36,
       ));
     }
 
@@ -122,4 +115,50 @@ List<Widget> generateCalendar(BuildContext context, DateTime date) {
   }
 
   return result;
+}
+
+class DayTile extends StatelessWidget {
+  const DayTile({
+    super.key,
+    required this.date,
+  });
+
+  final DateTime date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: surfaceColor2,
+      borderRadius: BorderRadius.circular(4),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(4),
+        onTap: () {
+          final currentDate = date;
+
+          showModalBottomSheet(
+            isScrollControlled: true,
+            useRootNavigator: true,
+            context: context,
+            builder: (context) {
+              return Wrap(children: [SummarySheet(date: currentDate)]);
+            },
+          );
+        },
+        child: SizedBox(
+          height: 36,
+          width: 36,
+          child: Center(
+            child: Text(
+              date.day.toString(),
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w300,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
