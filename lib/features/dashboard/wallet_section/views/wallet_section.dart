@@ -18,17 +18,17 @@ class WalletSection extends ConsumerWidget {
         Text(
           "Total Uang",
           style: GoogleFonts.poppins(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-          ),
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).colorScheme.primary),
         ),
         netWorth.when(
           data: (data) => Text(
             data.toRupiah(),
             style: GoogleFonts.poppins(
-              fontSize: 48,
-              fontWeight: FontWeight.w500,
-            ),
+                fontSize: 48,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.primary),
           ),
           loading: () => const Text("Still loading"),
           error: (error, stackTrace) => Text(

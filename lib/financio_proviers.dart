@@ -181,6 +181,14 @@ Future<List<Histories>> rangedHistoriesStream(
 }
 
 @riverpod
+Future<List<Histories>> historiesForSummary(HistoriesForSummaryRef ref, DateTime date) async {
+  final historyRepository = await ref.watch(historyRepositoryProvider.future);
+  final data = await historyRepository.getForSummary(date);
+
+  return data;
+}
+
+@riverpod
 Future<TransactionRepository> transactionRepository(
     TransactionRepositoryRef ref) async {
   final isar = await ref.watch(isarProvider.future);

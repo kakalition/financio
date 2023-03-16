@@ -272,6 +272,78 @@ class RangedHistoriesStreamFamily extends Family<AsyncValue<List<Histories>>> {
   String? get name => r'rangedHistoriesStreamProvider';
 }
 
+String _$historiesForSummaryHash() =>
+    r'ca99995de70b9dcff76f3cac64331322eddb4a39';
+
+/// See also [historiesForSummary].
+class HistoriesForSummaryProvider
+    extends AutoDisposeFutureProvider<List<Histories>> {
+  HistoriesForSummaryProvider(
+    this.date,
+  ) : super(
+          (ref) => historiesForSummary(
+            ref,
+            date,
+          ),
+          from: historiesForSummaryProvider,
+          name: r'historiesForSummaryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$historiesForSummaryHash,
+        );
+
+  final DateTime date;
+
+  @override
+  bool operator ==(Object other) {
+    return other is HistoriesForSummaryProvider && other.date == date;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, date.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef HistoriesForSummaryRef = AutoDisposeFutureProviderRef<List<Histories>>;
+
+/// See also [historiesForSummary].
+final historiesForSummaryProvider = HistoriesForSummaryFamily();
+
+class HistoriesForSummaryFamily extends Family<AsyncValue<List<Histories>>> {
+  HistoriesForSummaryFamily();
+
+  HistoriesForSummaryProvider call(
+    DateTime date,
+  ) {
+    return HistoriesForSummaryProvider(
+      date,
+    );
+  }
+
+  @override
+  AutoDisposeFutureProvider<List<Histories>> getProviderOverride(
+    covariant HistoriesForSummaryProvider provider,
+  ) {
+    return call(
+      provider.date,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'historiesForSummaryProvider';
+}
+
 String _$transactionRepositoryHash() =>
     r'aa8b2324477a284db87bc383ef950e736910c451';
 
