@@ -45,8 +45,6 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                   ],
                 ),
                 const SizedBox(height: 36),
-                const SummarySection(),
-                const SizedBox(height: 36),
                 const AllocationsSection(),
                 const SizedBox(height: 36),
                 const LatestTransactionsSection(),
