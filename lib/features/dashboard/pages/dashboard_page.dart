@@ -1,3 +1,4 @@
+import 'package:financio/colors.dart';
 import 'package:financio/features/dashboard/action_section/views/income_button.dart';
 import 'package:financio/features/dashboard/action_section/views/spend_button.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocations_section.dart';
@@ -34,15 +35,27 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 48),
-                const WalletSection(),
-                const SizedBox(height: 36),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    IncomeButton(),
-                    SizedBox(width: 8),
-                    SpendButton(),
-                  ],
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: surfaceColor
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const WalletSection(),
+                      const SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: const [
+                          IncomeButton(),
+                          SizedBox(width: 8),
+                          SpendButton(),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 36),
                 const AllocationsSection(),

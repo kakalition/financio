@@ -1,5 +1,4 @@
 import 'package:financio/features/dashboard/action_section/views/spend_sheet.dart';
-import 'package:financio/financio_proviers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +22,6 @@ class SpendButton extends ConsumerWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          padding: const EdgeInsets.all(12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),

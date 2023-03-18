@@ -21,7 +21,6 @@ class IncomeButton extends ConsumerWidget {
         label: const Text("Pemasukan"),
         style: OutlinedButton.styleFrom(
           foregroundColor: Theme.of(context).colorScheme.primary,
-          padding: const EdgeInsets.symmetric(vertical: 12),
           side: BorderSide(
               color: Theme.of(context).colorScheme.primary, width: 1),
           shape: RoundedRectangleBorder(
