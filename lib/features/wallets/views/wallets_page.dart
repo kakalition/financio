@@ -1,4 +1,5 @@
 import 'package:financio/commons/enums/wallets_filter.dart';
+import 'package:financio/core/providers/wallet_providers.dart';
 import 'package:financio/features/dashboard/wallet_section/views/new_wallet_dialog.dart';
 import 'package:financio/features/wallets/views/wallets_filter_sheet.dart';
 import 'package:financio/utils/widgets.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:financio/financio_proviers.dart';
+import 'package:tuple/tuple.dart';
 
 class WalletsPage extends ConsumerStatefulWidget {
   const WalletsPage({super.key});
@@ -16,16 +17,16 @@ class WalletsPage extends ConsumerStatefulWidget {
 }
 
 class WalletsPageState extends ConsumerState<WalletsPage> {
-  WalletsFilter category = WalletsFilter.nameAscending;
-  void applyFilter(WalletsFilter category) {
+  WalletsFilter filter = WalletsFilter.nameAscending;
+  void applyFilter(WalletsFilter filter) {
     setState(() {
-      this.category = category;
+      this.filter = filter;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final wallets = ref.watch(walletsStreamSorted(category));
+    final wallets = ref.watch(walletsState(Tuple2(null, filter)));
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -67,7 +68,7 @@ class WalletsPageState extends ConsumerState<WalletsPage> {
                       onPressed: () => showModalBottomSheet(
                         context: context,
                         builder: (context) => WalletsFilterSheet(
-                          category: category,
+                          filter: filter,
                           applyFilter: applyFilter,
                         ),
                       ),

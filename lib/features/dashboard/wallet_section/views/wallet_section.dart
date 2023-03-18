@@ -1,16 +1,13 @@
-import 'package:financio/features/dashboard/wallet_section/providers/money_providers.dart';
 import 'package:financio/utils/formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class WalletSection extends ConsumerWidget {
-  const WalletSection({super.key});
+class WalletSection extends StatelessWidget {
+  double total;
+  WalletSection({super.key, required this.total});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final netWorth = ref.watch(netWorthProvider);
-
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,18 +19,12 @@ class WalletSection extends ConsumerWidget {
               fontWeight: FontWeight.w500,
               color: Theme.of(context).colorScheme.primary),
         ),
-        netWorth.when(
-          data: (data) => Text(
-            data.toRupiah(),
-            style: GoogleFonts.poppins(
-                fontSize: 38,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.primary),
-          ),
-          loading: () => const Text("Still loading"),
-          error: (error, stackTrace) => Text(
-            error.toString(),
-          ),
+        Text(
+          total.toRupiah(),
+          style: GoogleFonts.poppins(
+              fontSize: 38,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.primary),
         ),
       ],
     );

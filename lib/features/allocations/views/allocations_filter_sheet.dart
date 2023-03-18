@@ -1,16 +1,15 @@
 import 'package:financio/commons/enums/allocations_filter.dart';
-import 'package:financio/commons/enums/wallets_filter.dart';
 import 'package:financio/commons/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AllocationsFilterSheet extends StatefulWidget {
-  AllocationsFilter category;
+  AllocationsFilter filter;
   void Function(AllocationsFilter) applyFilter;
 
   AllocationsFilterSheet({
     super.key,
-    required this.category,
+    required this.filter,
     required this.applyFilter,
   });
 
@@ -41,10 +40,10 @@ class _AllocationsFilterSheetState extends State<AllocationsFilterSheet> {
                 title: const Text('Nama A-Z'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: AllocationsFilter.nameAscending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (AllocationsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -52,10 +51,10 @@ class _AllocationsFilterSheetState extends State<AllocationsFilterSheet> {
                 title: const Text('Nama Z-A'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: AllocationsFilter.nameDescending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (AllocationsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -63,10 +62,10 @@ class _AllocationsFilterSheetState extends State<AllocationsFilterSheet> {
                 title: const Text('Total Terkecil'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: AllocationsFilter.totalAscending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (AllocationsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -74,10 +73,10 @@ class _AllocationsFilterSheetState extends State<AllocationsFilterSheet> {
                 title: const Text('Total Terbesar'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: AllocationsFilter.totalDescending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (AllocationsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -85,7 +84,7 @@ class _AllocationsFilterSheetState extends State<AllocationsFilterSheet> {
               PrimaryButton(
                 text: "Terapkan",
                 onTap: () {
-                  widget.applyFilter(widget.category);
+                  widget.applyFilter(widget.filter);
                   Navigator.of(context).pop();
                 },
               )

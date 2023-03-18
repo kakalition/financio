@@ -1,5 +1,4 @@
 import 'package:financio/commons/enums/allocations_filter.dart';
-import 'package:financio/commons/enums/wallets_filter.dart';
 import 'package:financio/core/db/collections/allocations.dart';
 import 'package:financio/core/db/collections/histories.dart';
 import 'package:financio/core/db/collections/wallets.dart';
@@ -16,11 +15,12 @@ part "financio_proviers.g.dart";
 
 @riverpod
 Future<Isar> isar(IsarRef ref) async {
-  final isar = await Isar.open([
-    WalletsSchema,
-    AllocationsSchema,
-    HistoriesSchema,
-  ]);
+  final isar = Isar.getInstance() ??
+      await Isar.open([
+        WalletsSchema,
+        AllocationsSchema,
+        HistoriesSchema,
+      ]);
 
   ref.keepAlive();
 
@@ -66,22 +66,6 @@ final walletsStream = StreamProvider.autoDispose((ref) async* {
   final isar = await ref.watch(isarProvider.future);
 
   yield* isar.wallets.where().sortByName().watch(fireImmediately: true);
-});
-
-final walletsStreamSorted = StreamProvider.autoDispose
-    .family<List<Wallets>, WalletsFilter>((ref, filter) async* {
-  final isar = await ref.watch(isarProvider.future);
-
-  final query = isar.wallets.where();
-  if (filter == WalletsFilter.nameAscending) {
-    yield* query.sortByName().watch(fireImmediately: true);
-  } else if (filter == WalletsFilter.nameDescending) {
-    yield* query.sortByNameDesc().watch(fireImmediately: true);
-  } else if (filter == WalletsFilter.totalAscending) {
-    yield* query.sortByTotal().watch(fireImmediately: true);
-  } else {
-    yield* query.sortByTotalDesc().watch(fireImmediately: true);
-  }
 });
 
 @riverpod
@@ -181,7 +165,8 @@ Future<List<Histories>> rangedHistoriesStream(
 }
 
 @riverpod
-Future<List<Histories>> historiesForSummary(HistoriesForSummaryRef ref, DateTime date) async {
+Future<List<Histories>> historiesForSummary(
+    HistoriesForSummaryRef ref, DateTime date) async {
   final historyRepository = await ref.watch(historyRepositoryProvider.future);
   final data = await historyRepository.getForSummary(date);
 

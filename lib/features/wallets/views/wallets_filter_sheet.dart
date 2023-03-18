@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WalletsFilterSheet extends StatefulWidget {
-  WalletsFilter category;
+  WalletsFilter filter;
   void Function(WalletsFilter) applyFilter;
 
   WalletsFilterSheet({
     super.key,
-    required this.category,
+    required this.filter,
     required this.applyFilter,
   });
 
@@ -40,10 +40,10 @@ class _WalletsFilterSheetState extends State<WalletsFilterSheet> {
                 title: const Text('Nama A-Z'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: WalletsFilter.nameAscending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (WalletsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -51,10 +51,10 @@ class _WalletsFilterSheetState extends State<WalletsFilterSheet> {
                 title: const Text('Nama Z-A'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: WalletsFilter.nameDescending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (WalletsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -62,10 +62,10 @@ class _WalletsFilterSheetState extends State<WalletsFilterSheet> {
                 title: const Text('Total Terkecil'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: WalletsFilter.totalAscending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (WalletsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -73,10 +73,10 @@ class _WalletsFilterSheetState extends State<WalletsFilterSheet> {
                 title: const Text('Total Terbesar'),
                 contentPadding: const EdgeInsets.symmetric(vertical: 2),
                 value: WalletsFilter.totalDescending,
-                groupValue: widget.category,
+                groupValue: widget.filter,
                 onChanged: (WalletsFilter? value) {
                   setState(() {
-                    widget.category = value ?? widget.category;
+                    widget.filter = value ?? widget.filter;
                   });
                 },
               ),
@@ -84,7 +84,7 @@ class _WalletsFilterSheetState extends State<WalletsFilterSheet> {
               PrimaryButton(
                 text: "Terapkan",
                 onTap: () {
-                  widget.applyFilter(widget.category);
+                  widget.applyFilter(widget.filter);
                   Navigator.of(context).pop();
                 },
               )

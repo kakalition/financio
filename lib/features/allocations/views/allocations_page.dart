@@ -1,4 +1,5 @@
 import 'package:financio/commons/enums/allocations_filter.dart';
+import 'package:financio/core/providers/allocation_providers.dart';
 import 'package:financio/features/allocations/views/new_allocation_sheet.dart';
 import 'package:financio/features/allocations/views/allocations_filter_sheet.dart';
 import 'package:financio/utils/widgets.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:financio/financio_proviers.dart';
+import 'package:tuple/tuple.dart';
 
 class AllocationsPage extends ConsumerStatefulWidget {
   const AllocationsPage({super.key});
@@ -16,16 +17,16 @@ class AllocationsPage extends ConsumerStatefulWidget {
 }
 
 class AllocationsPageState extends ConsumerState<AllocationsPage> {
-  AllocationsFilter category = AllocationsFilter.nameAscending;
-  void applyFilter(AllocationsFilter category) {
+  AllocationsFilter filter = AllocationsFilter.nameAscending;
+  void applyFilter(AllocationsFilter filter) {
     setState(() {
-      this.category = category;
+      this.filter = filter;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final allocations = ref.watch(allocationsStreamSorted(category));
+    final allocations = ref.watch(allocationsState(Tuple2(null, filter)));
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -69,7 +70,7 @@ class AllocationsPageState extends ConsumerState<AllocationsPage> {
                       onPressed: () => showModalBottomSheet(
                         context: context,
                         builder: (context) => AllocationsFilterSheet(
-                          category: category,
+                          filter: filter,
                           applyFilter: applyFilter,
                         ),
                       ),

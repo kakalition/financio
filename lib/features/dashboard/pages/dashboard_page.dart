@@ -1,11 +1,10 @@
 import 'package:financio/colors.dart';
+import 'package:financio/core/providers/dashboard_providers.dart';
 import 'package:financio/features/dashboard/action_section/views/income_button.dart';
 import 'package:financio/features/dashboard/action_section/views/spend_button.dart';
 import 'package:financio/features/dashboard/allocation_section/views/allocations_section.dart';
 import 'package:financio/features/dashboard/latest_transaction_section/views/latest_transaction_section.dart';
-import 'package:financio/features/dashboard/summary_section/views/summary_section.dart';
 import 'package:financio/features/dashboard/wallet_section/views/wallet_section.dart';
-import 'package:financio/features/mainpage/presentations/main_page.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +18,15 @@ class DashboardPage extends ConsumerStatefulWidget {
 
 class DashboardPageState extends ConsumerState<DashboardPage> {
   @override
+  void initState() {
+    super.initState();
+    ref.read(dashboardDataProvider.notifier).initialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final data = ref.watch(dashboardDataProvider);
+
     return Scaffold(
       bottomNavigationBar: WidgetUtils.createNavigationBar(context),
       body: SingleChildScrollView(
@@ -37,14 +44,13 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                 const SizedBox(height: 48),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: surfaceColor
-                  ),
+                      borderRadius: BorderRadius.circular(4),
+                      color: surfaceColor),
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const WalletSection(),
+                      WalletSection(total: data.total ?? 0),
                       const SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,9 +64,9 @@ class DashboardPageState extends ConsumerState<DashboardPage> {
                   ),
                 ),
                 const SizedBox(height: 36),
-                const AllocationsSection(),
+                AllocationsSection(allocations: data.allocations ?? []),
                 const SizedBox(height: 36),
-                const LatestTransactionsSection(),
+                LatestTransactionsSection(histories: data.histories ?? []),
               ],
             ),
           ),
