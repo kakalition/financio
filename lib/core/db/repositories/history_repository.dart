@@ -37,6 +37,19 @@ class HistoryRepository {
     return await data;
   }
 
+  Future<List<Histories>> getForSummary(DateTime date) async {
+    final data = _collection.isar.txn(() {
+      return _collection
+          .where()
+          .filter()
+          .dateBetween(date.changeTimeToLowerBound(), date.changeTimeToUpperBound())
+          .sortByDate()
+          .findAll();
+    });
+
+    return await data;
+  }
+
   Future<int> add(bool isSpending, String note) {
     final history = Histories()
       ..note = note

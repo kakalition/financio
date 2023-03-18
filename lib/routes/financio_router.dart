@@ -8,7 +8,7 @@ import "package:go_router/go_router.dart";
 class FinancioRouter {
   static GoRouter getRouter() {
     return GoRouter(
-      initialLocation: "/allocations",
+      initialLocation: "/dashboard",
       routes: [
         ShellRoute(
           builder: ((context, state, child) {

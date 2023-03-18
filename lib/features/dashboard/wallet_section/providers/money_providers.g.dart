@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$netWorthHash() => r'96a1aaa95f225e3e794f055a8e16f42edce3d50c';
+String _$netWorthHash() => r'245ea28b725b9bf66eb42c18c35b6807654d5d8c';
 
 /// See also [netWorth].
 final netWorthProvider = AutoDisposeFutureProvider<double>(
