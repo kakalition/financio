@@ -1,0 +1,4 @@
+enum HistoriesFilter {
+  dateAscending,
+  dateDescending,
+}

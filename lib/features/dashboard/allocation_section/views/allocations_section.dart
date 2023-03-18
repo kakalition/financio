@@ -1,17 +1,14 @@
-import 'package:financio/features/dashboard/allocation_section/views/allocation_menu.dart';
+import 'package:financio/core/db/collections/allocations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:financio/financio_proviers.dart';
 import 'package:financio/utils/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AllocationsSection extends ConsumerWidget {
-  const AllocationsSection({super.key});
+class AllocationsSection extends StatelessWidget {
+  final List<Allocations> allocations;
+  const AllocationsSection({super.key, required this.allocations});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(allocationsStream);
-
+  Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,14 +21,8 @@ class AllocationsSection extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 12),
-        // const AllocationMenu(),
-        // const SizedBox(height: 8),
-        data.when(
-          data: (data) => Column(
-            children: data.toAllocationChildren(),
-          ),
-          loading: () => const Text("Loading"),
-          error: (error, stackTrace) => const Text("Error"),
+        Column(
+          children: allocations.toAllocationChildren(),
         )
       ],
     );
